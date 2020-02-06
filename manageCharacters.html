@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manage Characters</title>
+</head>
+<body>
+	<p>Manage Characters Page</p>
+	<form method = "post">
+        <fieldset>
+			
+			<legend>Update Character Here:</legend>
+			
+			<label> First Name:
+                <input type ="text" name ="firstName" size="20" maxlength="20">
+            </label>
+			
+			<br/><br/>
+
+			<label> Last Name:
+                <input type ="text" name ="lastName" size="20" maxlength="20">
+            </label>
+
+            <br/><br/>
+			
+			<label>Strength:
+                <input type ="number" name ="strength" size="1" maxlength="2">
+            </label>
+			
+			<br/><br/>
+
+			<label>Dexterity:
+                <input type ="number" name ="dexterity" size="1" maxlength="2">
+            </label>
+			
+			<br/><br/>
+
+			<label>Endurance:
+                <input type ="number" name ="endurance" size="1" maxlength="2">
+            </label>
+			
+			<br/><br/>
+
+			<label>Intelligence:
+                <input type ="number" name ="intelligence" size="1" maxlength="2">
+            </label>
+			
+			<br/><br/>
+			
+			<label>Select New Guild: </label>
+
+				<select name = "guildDropdown">
+					<option value = "Merchants" selected> Merchants</option>
+					<option value = "Fighters" selected> Fighters</option>
+					<option value = "Mages" selected> Mages</option>
+					<option value = "Assassins" selected> Assassins</option>
+					<option value = "Mercenaries" selected> Mercenaries</option>
+					<option disabled selected value>Select An Option</option>
+				</select>
+
+			<p></p>
+
+			<label>Select New Class: </label>
+
+				<select name = "classDropDown">
+					<option value = "Rogue" selected>Rogue</option>
+					<option value = "Sorceress" selected>Sorceress</option>
+					<option value = "Ranger" selected>Ranger</option>
+					<option value = "Cleric" selected>Cleric</option>
+					<option value = "Druid" selected>Druids</option>
+					<option disabled selected value>Select An Option</option>
+				</select>
+
+				<p></p>
+
+				<label>Select Spell to Add: </label>
+				<select name = "spellDropdown">
+					<option value = "Fireball" selected>Fireball</option>
+					<option value = "Cast Light" selected>Cast Light</option>
+					<option value = "Healing Touch" selected>Healing Touch</option>
+					<option value = "Frost Bolt" selected>Frost Bolt</option>
+					<option value = "Summon Familiar" selected>Summon Familiar</option>
+					<option value = "Detect Magic" selected>Detect Magic</option>
+					<option value = "Polymorph" selected>Polymorph</option>
+					<option value = "Magic Missile" selected>Magic Missle</option>
+					<option disabled selected value>Select An Option</option>
+				</select>
+				
+				<p></p>
+			<input type="submit" value="Submit">
+		</fieldset>
+
+		<p><button type="deleteCharacter">Delete Current Character</button></p>
+
+    </form>
+</body>
+</html>
