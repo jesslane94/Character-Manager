@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
@@ -49,10 +51,11 @@
           </ul>
         </div>
     </nav> 
+
 	<br>
+
 	<form method = "post">
-        <fieldset>
-			
+
 			<legend>Add Guild</legend>
 			
 			<label> Guild Name:
@@ -65,54 +68,33 @@
                 <input type ="text" name ="lastName" size="20" maxlength="20">
             </label>
 
-            <input type="submit" value="Submit">
-        </fieldset>
+            <br></br>
+
+            <input type="submit" value="Add Guild">
+      
     </form>
+
+    <br>
 
     <form method = "post">
-        <fieldset>
 			
-			<br/><br/>
-			
-			<label>Select Guild: </label>
-				<select name = "guildDropdown">
+			<label>Select Guild to Modify: </label>
+				<select name = "guildModify">
 					<option value = "Merchants" selected> Merchants</option>
 					<option value = "Fighters" selected> Fighters</option>
 					<option value = "Mages" selected> Mages</option>
 					<option value = "Assassins" selected> Assassins</option>
 					<option value = "Mercenaries" selected> Mercenaries</option>
 					<option disabled selected value>Select An Option</option>
-				
-        </fieldset>
+			
+			<input type="submit" value="Modify Guild">
     </form>
 
-            <br/><br/>
-			
-			<label>Strength:
-                <input type ="number" name ="strength" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
+    <br>
 
-			<label>Dexterity:
-                <input type ="number" name ="dexterity" size="1" maxlength="2">
-            </label>
+    <form method = "post">
 			
-			<br/><br/>
-
-			<label>Endurance:
-                <input type ="number" name ="endurance" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
-
-			<label>Intelligence:
-                <input type ="number" name ="intelligence" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
-			
-			<label>Select Guild: </label>
+			<label>Select Guild to Delete: </label>
 				<select name = "guildDropdown">
 					<option value = "Merchants" selected> Merchants</option>
 					<option value = "Fighters" selected> Fighters</option>
@@ -120,11 +102,42 @@
 					<option value = "Assassins" selected> Assassins</option>
 					<option value = "Mercenaries" selected> Mercenaries</option>
 					<option disabled selected value>Select An Option</option>
-				</select>
+			
+			<input type="submit" value="Delete Guild">
+    </form>
 
-			<p></p>
+    <br>
 
-			<label>Select Class: </label>
+    <form method = "post">
+			
+			<legend>Add Class</legend>
+			
+			<label>Class Name:
+                <input type ="text" name ="className" size="20" maxlength="20">
+            </label>
+			
+			<br/><br/>
+
+			<label>Class Description:
+                <input type ="text" name ="classDescription" size="20" maxlength="20">
+            </label>
+
+            <br></br>
+
+            <label>Bonus Stats for Class:
+                <input type ="text" name ="bonusStats" size="20" maxlength="20">
+            </label>
+
+            <br></br>
+
+            <input type="submit" value="Add Class">
+    </form>
+
+    <br>
+
+    <form method = "post">
+        <fieldset>Select Class to Modify:
+		
 				<select name = "classDropDown">
 					<option value = "Rogue" selected>Rogue</option>
 					<option value = "Sorceress" selected>Sorceress</option>
@@ -134,25 +147,89 @@
 					<option disabled selected value>Select An Option</option>
 				</select>
 
-			<p></p>
-
-			<label>Select Spell: </label>
-				<select name = "spellDropdown">
-					<option value = "Fireball" selected>Fireball</option>
-					<option value = "Cast Light" selected>Cast Light</option>
-					<option value = "Healing Touch" selected>Healing Touch</option>
-					<option value = "Frost Bolt" selected>Frost Bolt</option>
-					<option value = "Summon Familiar" selected>Summon Familiar</option>
-					<option value = "Detect Magic" selected>Detect Magic</option>
-					<option value = "Polymorph" selected>Polymorph</option>
-					<option value = "Magic Missile" selected>Magic Missle</option>
-					<option disabled selected value>Select An Option</option>
-				</select>
-
-			<p></p>
-			
-			<input type="submit" value="Submit">
-		</fieldset>
+			<input type="submit" value="Modify Class">
+        </fieldset>
     </form>
+
+    <br>
+
+    <form method = "post">
+			
+		<label>Select Class to Delete: </label>
+			<select name = "classDropDown">
+				<option value = "Rogue" selected>Rogue</option>
+				<option value = "Sorceress" selected>Sorceress</option>
+				<option value = "Ranger" selected>Ranger</option>
+				<option value = "Cleric" selected>Cleric</option>
+				<option value = "Druid" selected>Druids</option>
+				<option disabled selected value>Select An Option</option>
+			</select>
+
+		<input type="submit" value="Delete Class">
+
+    </form>
+
+    <br>
+
+     <form method = "post">
+			
+		<legend>Add Spell</legend>
+		
+		<label>Spell Name:
+            <input type ="text" name ="spellName" size="20" maxlength="20">
+        </label>
+		
+		<br/><br/>
+
+		<label>Spell Description:
+            <input type ="text" name ="spellDescription" size="20" maxlength="20">
+        </label>
+
+        <br></br>
+
+        <input type="submit" value="Add Spell">
+
+    </form>
+
+    <br>
+
+     <form method = "post">
+
+		<label>Modify Spell: </label>
+			<select name = "spellDropdown">
+				<option value = "Fireball" selected>Fireball</option>
+				<option value = "Cast Light" selected>Cast Light</option>
+				<option value = "Healing Touch" selected>Healing Touch</option>
+				<option value = "Frost Bolt" selected>Frost Bolt</option>
+				<option value = "Summon Familiar" selected>Summon Familiar</option>
+				<option value = "Detect Magic" selected>Detect Magic</option>
+				<option value = "Polymorph" selected>Polymorph</option>
+				<option value = "Magic Missile" selected>Magic Missle</option>
+				<option disabled selected value>Select An Option</option>
+			</select>
+
+        <input type="submit" value="Modify Spell">
+    </form>
+
+    <br>
+
+    <form method = "post">
+			
+		<label>Delete Spell: </label>
+			<select name = "spellDropdown">
+				<option value = "Fireball" selected>Fireball</option>
+				<option value = "Cast Light" selected>Cast Light</option>
+				<option value = "Healing Touch" selected>Healing Touch</option>
+				<option value = "Frost Bolt" selected>Frost Bolt</option>
+				<option value = "Summon Familiar" selected>Summon Familiar</option>
+				<option value = "Detect Magic" selected>Detect Magic</option>
+				<option value = "Polymorph" selected>Polymorph</option>
+				<option value = "Magic Missile" selected>Magic Missle</option>
+				<option disabled selected value>Select An Option</option>
+			</select>
+
+        <input type="submit" value="Delete Spell">
+    </form>
+
 </body>
 </html>
