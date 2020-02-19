@@ -9,9 +9,7 @@ DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS classes_spells;
 DROP TABLE IF EXISTS characters_spells;
 
-/*
-create tables
-*/
+/* Create Tables */
 
 CREATE TABLE characters (
     char_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,15 +18,7 @@ CREATE TABLE characters (
     strength INT(11) NOT NULL,
     dexterity INT(11) NOT NULL,
     endurance INT(11) NOT NULL,
-    intelligence INT(11) NOT NULL,
-    class_id INT(11) NOT NULL,
-    guild_id INT(11),
-    FOREIGN KEY(class_id) REFERENCES classes(class_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY(guild_id) REFERENCES guilds(guild_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    intelligence INT(11) NOT NULL
 );
 
 CREATE TABLE spells (
@@ -41,16 +31,20 @@ CREATE TABLE guilds (
    guild_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    guild_name VARCHAR(255) NOT NULL,
    guild_specialization VARCHAR(255) NOT NULL,
-   char_id int(11) NOT NULL
+   char_id int(11) NOT NULL,
    FOREIGN KEY(char_id) REFERENCES characters(char_id)
         ON DELETE CASCADE
-        ON UPDATE CASCADE, 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE classes (
    class_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    class_name VARCHAR(255) NOT NULL,
    stat_bonus VARCHAR(255) NOT NULL,
+   char_id int(11) NOT NULL,
+   FOREIGN KEY(char_id) REFERENCES characters(char_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE classes_spells (
