@@ -1,6 +1,6 @@
 /*Insert Values into the Tables */
 INSERT INTO characters (:first_name, :last_name, :strength, :dexterity, :endurance, :intelligence)
-VALUES ("Grey", "Skull", 1/2, 15, 13, 8),
+VALUES ("Grey", "Skull", 12, 15, 13, 8),
        ("Dryany", "Enyn", 8, 12, 8, 15),
        ("Adriel", "Serielye", 10, 15, 12, 11);
 
@@ -18,3 +18,37 @@ INSERT INTO classes (:class_name, :stat_bonus)
 VALUES ("Rogue", "+2 Dexterity"),
     ("Bard","+2 Charisma"), 
     ("Fighter", "+2 Strength");
+
+/*SELECT VALUES FROM TABLES */
+SELECT first_name, last_name FROM characters;
+
+SELECT spell_id
+FROM spells
+WHERE spell_id = 1;
+
+SELECT * 
+FROM guilds
+WHERE guild_name = "Mages";
+
+/*UPDATE VALUES FROM TABLES */
+UPDATE characters
+SET strength = 16
+WHERE char_id = 1;
+
+UPDATE spells
+SET spell_level = "Level 2"
+WHERE spell_name = "Fireball";
+
+UPDATE guilds
+SET guild_name = "The Former Dark Brotherhood"
+WHERE guild_name = "Dark Brotherhood";
+
+/*DELETE VALUES FROM TABLES */
+DELETE FROM characters
+WHERE last_name = "Enyn";
+
+DELETE FROM classes
+WHERE class_id = 3;
+
+DELETE FROM spells
+WHERE spell_level = "Level 2";
