@@ -1,24 +1,15 @@
-/* INSERT VALUES INTO TABLES */
-INSERT INTO characters (:first_name, :last_name, :strength, :dexterity, :endurance, :intelligence)
-VALUES ("Grey", "Skull", 12, 15, 13, 8),
-       ("Dryany", "Enyn", 8, 12, 8, 15),
-       ("Adriel", "Serielye", 10, 15, 12, 11);
+/*INSERT STATEMENTS*/
+INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence)
+VALUES ( firstname_input, lastname_input, str_input, dex_input, end_input, int_input)
 
-INSERT INTO spells (:spell_name, :spell_level, :spell_description) 
-VALUES ("Fireball", "Level 1", "Shoots a fireball. Caution: It's hot."),
-    ("Healing Touch", "Level 1", "Restores 5-10 HP to Target."), 
-    ("Cast Light", "Level 1", "Makes an object you touch glow. Yippee!");
+INSERT INTO spells (spell_name, spell_level, spell_description)
+VALUES ( spell_name_input, spell_level_input, spell_description_input)
 
-INSERT INTO guilds (:guild_name, :guild_specialization)
-VALUES ("Merchants", "You like? You buy! I give you a good price"),
-       ("Mages", "Never trust a mage"),
-       ("Dark Brotherhood", "I just want a nightmare'ish looking horse to ride on");
+INSERT INTO guilds (guild_name, guild_specialization)
+VALUES ( guild_name_input, guild_specialization_input)
 
-INSERT INTO classes (:class_name, :stat_bonus) 
-VALUES ("Rogue", "+2 Dexterity"),
-    ("Bard","+2 Charisma"), 
-    ("Fighter", "+2 Strength");
-
+INSERT INTO classes (class_name, stat_bonus)
+VALUES ( class_name_input, stat_bonus_input)
 
 /*SELECT VALUES FROM TABLES */
 SELECT first_name, last_name 
@@ -40,8 +31,8 @@ WHERE class_id = 1;
 
 /*UPDATE VALUES FROM TABLES */
 UPDATE characters
-SET strength = 16
-WHERE char_id = 1;
+SET first_name = first_name_input, last_name = lastname_input, strength = str_input, dexterity = dex_input, endurance = end_input, intelligence =  int_input)
+WHERE char_id = char_id_input;
 
 UPDATE spells
 SET spell_level = "Level 2"
@@ -59,7 +50,7 @@ WHERE class_name = "Rogue";
 
 /*DELETE VALUES FROM TABLES */
 DELETE FROM characters
-WHERE last_name = "Enyn";
+WHERE char_id = char_id_input;
 
 DELETE FROM classes
 WHERE class_id = 3;
