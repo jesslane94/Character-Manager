@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS characters_spells;
 
 /* Create Tables */
 
-/* Create Charaacter Table */
+/* Create Character Table */
 CREATE TABLE characters (
     char_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -72,6 +72,9 @@ CREATE TABLE characters_spells (
         ON DELETE CASCADE
         ON UPDATE CASCADE 
 );
+
+/* Do we still need this in this file if it is in the dml file? Or do we keep it in this one and delete
+it from the dml file?? -Jess */
 
 /*Insert Values into the Tables */
 INSERT INTO characters (:first_name, :last_name, :strength, :dexterity, :endurance, :intelligence)
