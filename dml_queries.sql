@@ -1,4 +1,4 @@
-/*Insert Values into the Tables */
+/* INSERT VALUES INTO TABLES */
 INSERT INTO characters (:first_name, :last_name, :strength, :dexterity, :endurance, :intelligence)
 VALUES ("Grey", "Skull", 12, 15, 13, 8),
        ("Dryany", "Enyn", 8, 12, 8, 15),
@@ -19,8 +19,10 @@ VALUES ("Rogue", "+2 Dexterity"),
     ("Bard","+2 Charisma"), 
     ("Fighter", "+2 Strength");
 
+
 /*SELECT VALUES FROM TABLES */
-SELECT first_name, last_name FROM characters;
+SELECT first_name, last_name 
+FROM characters;
 
 SELECT spell_id
 FROM spells
@@ -29,6 +31,12 @@ WHERE spell_id = 1;
 SELECT * 
 FROM guilds
 WHERE guild_name = "Mages";
+
+/* added this - Jess */
+SELECT class_id
+FROM classes
+WHERE class_id = 1;
+
 
 /*UPDATE VALUES FROM TABLES */
 UPDATE characters
@@ -43,6 +51,12 @@ UPDATE guilds
 SET guild_name = "The Former Dark Brotherhood"
 WHERE guild_name = "Dark Brotherhood";
 
+/*added this - Jess */
+UPDATE classes
+SET class_name = "Ranger"
+WHERE class_name = "Rogue";
+
+
 /*DELETE VALUES FROM TABLES */
 DELETE FROM characters
 WHERE last_name = "Enyn";
@@ -52,3 +66,7 @@ WHERE class_id = 3;
 
 DELETE FROM spells
 WHERE spell_level = "Level 2";
+
+/* added this one - Jess */
+DELETE FROM guilds
+WHERE guild_id = 1;

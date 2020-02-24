@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS characters_spells;
 
 /* Create Tables */
 
-/* Create Charaacter Table */
+/* Create Character Table */
 CREATE TABLE characters (
     char_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE classes (
    class_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    class_name VARCHAR(255) NOT NULL,
    stat_bonus VARCHAR(255) NOT NULL,
-   char_id int(11) NOT NULL,
+   char_id int(11) NULL,
    FOREIGN KEY(char_id) REFERENCES characters(char_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
