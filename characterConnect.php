@@ -1,8 +1,8 @@
 <?php
-    $servername = classmysql.engr.oregonstate.edu
-    $username = cs340_kuhnku
-    $password = 3321
-    $dbname = cs340_kuhnku
+    $servername = "classmysql.engr.oregonstate.edu";
+    $username = "cs340_kuhnku";
+    $password = "3321";
+    $dbname = "cs340_kuhnku";
 
     //Create new connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -22,9 +22,6 @@
     $guild = $_POST('guild');
     $class = $_POST('class');
     $spell = $_POST('spell');
-
-
-
 
     $sql = "INSERT INTO characters (firstname, lastname, strength, dexterity, endurance, intelligence, guild, class, spell)
     VALUES = ('$firstName', '$lastName', '$strength', '$dexterity', '$endurance', '$intelligence', '$guild', '$class', '$spell' )
