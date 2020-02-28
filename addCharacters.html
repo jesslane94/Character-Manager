@@ -51,7 +51,7 @@
         </div>
     </nav> 
     <br>
-	<form method = "post">
+	<form action = "characterConnect.php" method = "post">
         <fieldset>
 			
 			<legend>Add Character Here:</legend>
@@ -93,7 +93,7 @@
 			<br/><br/>
 			
 			<label>Select Guild: </label>
-				<select name = "guildDropdown">
+				<select name = "guild">
 					<option value = "Merchants" selected> Merchants</option>
 					<option value = "Fighters" selected> Fighters</option>
 					<option value = "Mages" selected> Mages</option>
@@ -105,7 +105,7 @@
 			<p></p>
 
 			<label>Select Class: </label>
-				<select name = "classDropDown">
+				<select name = "class">
 					<option value = "Rogue" selected>Rogue</option>
 					<option value = "Sorceress" selected>Sorceress</option>
 					<option value = "Ranger" selected>Ranger</option>
@@ -117,7 +117,7 @@
 			<p></p>
 
 			<label>Select Spell: </label>
-				<select name = "spellDropdown">
+				<select name = "spell">
 					<option value = "Fireball" selected>Fireball</option>
 					<option value = "Cast Light" selected>Cast Light</option>
 					<option value = "Healing Touch" selected>Healing Touch</option>
@@ -131,7 +131,7 @@
 
 			<p></p>
 			
-			<input type="submit" value="Submit">
+			<input type="submit" value="characterInsert">
 		</fieldset>
     </form>
 </body>
