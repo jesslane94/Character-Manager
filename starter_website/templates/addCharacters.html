@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Manage Characters</title>
+    <title>Add Characters</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,7 +14,7 @@
 	<nav class="navbar bg-dark navbar-dark">
         <!-- Brand -->
         <a class="navbar-brand" href="index.html">Character Manager</a>
-
+      
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -45,16 +45,16 @@
                 <a class="nav-link" href="spells.html">View Spells</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Admin Page</a>
+                <a class="nav-link" href="admin.html">Admin Page</a>
             </li>
           </ul>
         </div>
     </nav> 
-	<br>
-	<form method = "post" id= "updateForm">
+    <br>
+	<form action = "characterConnect.php" method = "post">
         <fieldset>
 			
-			<legend>Update Character Here:</legend>
+			<legend>Add Character Here:</legend>
 			
 			<label> First Name:
                 <input type ="text" name ="firstName" size="20" maxlength="20">
@@ -66,7 +66,7 @@
                 <input type ="text" name ="lastName" size="20" maxlength="20">
             </label>
 
-            <br/><br/>
+            <!-- <br/><br/>
 			
 			<label>Strength:
                 <input type ="number" name ="strength" size="1" maxlength="2">
@@ -90,11 +90,10 @@
                 <input type ="number" name ="intelligence" size="1" maxlength="2">
             </label>
 			
-			<br/><br/>
+			<br/><br/> -->
 			
-			<label>Select New Guild: </label>
-
-				<select name = "guildDropdown">
+			<!-- <label>Select Guild: </label>
+				<select name = "guild">
 					<option value = "Merchants" selected> Merchants</option>
 					<option value = "Fighters" selected> Fighters</option>
 					<option value = "Mages" selected> Mages</option>
@@ -105,9 +104,8 @@
 
 			<p></p>
 
-			<label>Select New Class: </label>
-
-				<select name = "classDropDown">
+			<label>Select Class: </label>
+				<select name = "class">
 					<option value = "Rogue" selected>Rogue</option>
 					<option value = "Sorceress" selected>Sorceress</option>
 					<option value = "Ranger" selected>Ranger</option>
@@ -116,10 +114,10 @@
 					<option disabled selected value>Select An Option</option>
 				</select>
 
-				<p></p>
+			<p></p>
 
-				<label>Select Spell to Add: </label>
-				<select name = "spellDropdown">
+			<label>Select Spell: </label>
+				<select name = "spell">
 					<option value = "Fireball" selected>Fireball</option>
 					<option value = "Cast Light" selected>Cast Light</option>
 					<option value = "Healing Touch" selected>Healing Touch</option>
@@ -130,11 +128,11 @@
 					<option value = "Magic Missile" selected>Magic Missle</option>
 					<option disabled selected value>Select An Option</option>
 				</select>
-			<p><button type="deleteCharacter">Delete Current Character</button></p>	
-				<p></p>
+ -->
+			<p></p>
+			
 			<input type="submit" value="Submit">
-			</fieldset>
-	</form>
-	<br>
+		</fieldset>
+    </form>
 </body>
 </html>

@@ -54,20 +54,33 @@
 	<form method = "get">
         <fieldset>
 			
-			<legend>View Characters Here:</legend>
-			
-			<label> First Name:
-                <input type ="text" name ="firstName" size="20" maxlength="20">
-            </label>
-			
-			<br/><br/>
-
-			<label> Last Name:
-                <input type ="text" name ="lastName" size="20" maxlength="20">
-            </label>
-
-            <br/><br/>
-			
+			<legend>View Current Characters Here:</legend>
+			<table border='1'>
+        <thead>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Strength</th>
+            <th>Dexterity</th>
+            <th>Endurance</th>
+            <th>Intelligence</th>
+        </thead>
+        <tbody>
+          {% for r in rows %}
+          <tr>
+            <td> {{ r.0 }}</td>
+            <td> {{ r[1] }}</td>
+            <td> {{ r[2] }}</td>
+            <td> {{ r[3] }}</td>
+            <td> {{ r[4] }}</td>
+            <td> {{ r[5] }}</td>
+            <td> <input type='button' name='Update' value='Update'
+                onclick="window.location = '/updateCharacter/{{r[6]}}'"> </td>
+            <!-- <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/delete_people/{{r[4]}}'"> </td> -->
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+		<p></p>
 			
 			<label>Select Guild to Search From: </label>
 
