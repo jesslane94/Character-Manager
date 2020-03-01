@@ -55,6 +55,62 @@ def updateCharacter(id):
 
         return redirect('/viewCharacters')
 
+@webapp.route('/addNewCharacter', methods=['POST','GET'])
+
+def addNewCharacter():
+
+    print ("Add new people!");
+    
+
+   
+    firstName = request.form['firstName']
+    lastName = request.form['lastName']
+    strength = request.form['strength']
+    dexterity = request.form['dexterity']
+    endurance = request.form['endurance']
+    intelligence = request.form['intelligence']
+
+    print("Hello my first name is", firstName)
+
+    query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence) VALUES (%s, %s, %s, %s, %s, %s)'
+    db_connection = connect_to_database()
+    data = (firstName, lastName, strength, dexterity, endurance, intelligence)
+
+    print(data)
+    
+    execute_query(db_connection, query, data)
+
+    return render_template('addNewCharacter.html')
+    """
+    #Populate query
+    query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence) VALUES (%s, %s, %s, %s, %s, %s)'
+    data = (firstName, lastName, strength, dexterity, endurance, intelligence)
+
+    #Connect to the database and submite the query
+    db_connection = connect_to_database()
+    execute_query(db_connection, query, data) 
+    
+    if request.method == 'GET':
+        query = 'SELECT char_id FROM characters'
+        result = execute_query(db_connection, query).fetchall();
+        print(result)
+
+        return render_template('addCharacters.html', character = result)
+
+    elif request.method == 'POST':
+        print("Add new character!");
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        strength = request.form['strength']
+        dexterity = request.form['dexterity']
+        endurance = request.form['endurance']
+        intelligence = request.form['intelligence']
+
+        query = 'INSERT INTO characters (firstName, lastName, strength, dexterity, endurance,intelligence) VALUES (%s,%s,%s,%s, %s,%s)'
+        data = (firstName, lastName, strength, dexterity, endurance,intelligence)
+        execute_query(db_connection, query, data)
+        return ('Character added!'); """
+
 """ 
 @webapp.route('/browse_bsg_people')
 #the name of this function is just a cosmetic thing
