@@ -8,7 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background-color:#343a40;
@@ -17,51 +16,56 @@
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="index.html">Character Manager</a>
-      
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="manageCharacters.html">Manage Character</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="addCharacters.html">Add Character</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="viewCharacters.html">View Characters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="guilds.html">View Guilds</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="classes.html">View Classes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="spells.html">View Spells</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="admin.html">Admin Page</a>
-            </li>
-          </ul>
-        </div>
-    </nav> 
-    <img class="img-fluid" src="header-drizzt_10_1.jpg" alt="dnd">
-    <br><br>
-    <p class = "text-white text-center"><i>What Will Be Implemented</i></p> 
-    <ul class = "text-white">
-      <li>When the user searches for a character, there will be a button that links to the manage character page</li>
-      <li>The manage character page will have a delete function that will delete the selected character row when implemented.</li>
-      <li>The idea of allowing the user to add in additional spells, classes, or guilds.  However, this may not be seen, due the games established rules.</li>
-    </ul>
+    <!-- Brand -->
+    <a class="navbar-brand" href="index.html">Character Manager</a>
+  
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addCharacters.html">Add Character</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="viewCharacters.html">View/Manage Characters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="addClass.html">Add Class</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="viewClasses.html">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="addGuild.html">Add Guild</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="viewGuilds.html">View/Manage Guilds</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="addSpell.html">Add Spell</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="viewSpells.html">View/Manage Spells</a>
+        </li>
+      </ul>
+    </div>
+</nav> 
+
+<img class="img-fluid" src="header-drizzt_10_1.jpg" alt="dnd">
+<br><br>
+
+<p class = "text-white text-center"><i>What Is Implemented So Far</i></p> 
+<ul class = "text-white">
+  <li>'Add' Page for each entity. The user can add a new character/spell/class/guild to the database.</li>
+  <li>'View' Page for each entity's current entries. This page will also have a button to lead you to a page where you can update the corresponding entity.</li>
+</ul>
+
 </body>
 </html>
