@@ -10,10 +10,6 @@ webapp = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@webapp.route('/manageCharacter')
-def manageCharacters():
-    return render_template('manageCharacters.html')
-
 @webapp.route('/viewCharacters')
 def viewCharacters():
     db_connection = connect_to_database()
@@ -56,31 +52,147 @@ def updateCharacter(id):
         return redirect('/viewCharacters')
 
 @webapp.route('/addNewCharacter', methods=['POST','GET'])
-
 def addNewCharacter():
 
-    print ("Add new people!");
-    
-
-   
-    firstName = request.form['firstName']
-    lastName = request.form['lastName']
-    strength = request.form['strength']
-    dexterity = request.form['dexterity']
-    endurance = request.form['endurance']
-    intelligence = request.form['intelligence']
-
-    print("Hello my first name is", firstName)
-
-    query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence) VALUES (%s, %s, %s, %s, %s, %s)'
     db_connection = connect_to_database()
-    data = (firstName, lastName, strength, dexterity, endurance, intelligence)
 
-    print(data)
+    if request.method == 'GET':
+        guild_query = 'SELECT guild_id, guild_name FROM guilds'
+        guild_result = execute_query(db_connection, guild_query).fetchall();
+
+        print(guild_result)
+
+        class_query = 'SELECT class_id, class_name FROM classes'
+        class_result = execute_query(db_connection, class_query).fetchall(); 
+
+        return render_template('addNewCharacter.html', guilds = guild_result, classes = class_result)
+
+    elif request.method == 'POST':
+        print ("Add new people!");
+        
+        firstName = request.form.get('firstName', False)
+        lastName = request.form.get('lastName', False)
+        strength = request.form.get('strength', False)
+        dexterity = request.form.get('dexterity', False)
+        endurance = request.form.get('endurance', False)
+        intelligence = request.form.get('intelligence', False)
+        guildID = request.form.get('guilds', False)
+        classID = request.form.get('classes', False)
+
+        query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, guild_id, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+        data = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID)
+        execute_query(db_connection, query, data)
+
+        return ('Character added!')
+
+@webapp.route('/viewClasses')
+def viewClasses():
+    db_connection = connect_to_database()
+    query = "SELECT class_name, stat_bonus_name, stat_bonus FROM classes"
+    result = execute_query(db_connection, query).fetchall();
+    print(result)
+    return render_template('viewClasses.html', rows=result)
+
+@webapp.route('/addClass', methods=['POST','GET'])
+def addClass():
+
+    db_connection = connect_to_database()
+
+    print ("Add new class!");
+
+    if request.method == 'GET':
+        query = 'SELECT class_name, stat_bonus, stat_bonus_name FROM classes'
+        result = execute_query(db_connection, query).fetchall();
+        print (result)
+
+        return render_template('addClass.html')
+
+    elif request.method == 'POST':
+
+        className = request.form.get('className', False)
+        bonusStat = request.form.get('bonusStat', False)
+        statBonusName = request.form.get('statBonusName', False)
+
+        query = 'INSERT INTO classes (class_name, stat_bonus, stat_bonus_name) VALUES (%s, %s, %s)'
+
+        db_connection = connect_to_database()
+        data = (className, bonusStat, statBonusName)
+        execute_query(db_connection, query, data)
+
+        return ('Class added!')
     
-    execute_query(db_connection, query, data)
+@webapp.route('/viewGuilds')
+def viewGuilds():
+    db_connection = connect_to_database()
+    query = "SELECT guild_name, guild_description FROM guilds"
+    result = execute_query(db_connection, query).fetchall();
+    print(result)
+    return render_template('viewGuilds.html', rows=result)
 
-    return render_template('addNewCharacter.html')
+@webapp.route('/addGuild', methods=['POST','GET'])
+def addGuild():
+
+    db_connection = connect_to_database()
+
+    print ("Add new guild!");
+
+    if request.method == 'GET':
+        query = 'SELECT guild_name, guild_description FROM guilds'
+        result = execute_query(db_connection, query).fetchall();
+        print (result)
+
+        return render_template('addGuild.html')
+
+    elif request.method == 'POST':
+
+        guildName = request.form.get('guildName', False)
+        guildDescription = request.form.get('guildDescription', False)
+
+        query = 'INSERT INTO guilds (guild_name, guild_description) VALUES (%s, %s)'
+
+        db_connection = connect_to_database()
+        data = (guildName, guildDescription)
+        execute_query(db_connection, query, data)
+
+        return ('Guild added!')
+
+@webapp.route('/viewSpells')
+def viewSpells():
+    db_connection = connect_to_database()
+    query = "SELECT spell_name, spell_description, spell_level FROM spells"
+    result = execute_query(db_connection, query).fetchall();
+    print(result)
+    return render_template('viewSpells.html', rows=result)
+
+@webapp.route('/addSpell', methods=['POST','GET'])
+def addSpell():
+
+    db_connection = connect_to_database()
+
+    print ("Add new spell!");
+
+    if request.method == 'GET':
+        query = 'SELECT spell_name, spell_level, spell_description FROM spells'
+        result = execute_query(db_connection, query).fetchall();
+        print (result)
+
+        return render_template('addSpell.html')
+
+    elif request.method == 'POST':
+
+        spellName = request.form.get('spellName', False)
+        spellLevel = request.form.get('spellLevel', False)
+        spellDescription = request.form.get('spellDescription', False)
+
+        query = 'INSERT INTO spells (spell_name, spell_level, spell_description) VALUES (%s, %s, %s)'
+
+        db_connection = connect_to_database()
+        data = (spellName, spellLevel, spellDescription)
+        execute_query(db_connection, query, data)
+
+        return ('Spell added!')
+
+    
     """
     #Populate query
     query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence) VALUES (%s, %s, %s, %s, %s, %s)'
@@ -127,7 +239,8 @@ def add_new_people():
     db_connection = connect_to_database()
     if request.method == 'GET':
         query = 'SELECT planet_id, name from bsg_planets'
-        result = execute_query(db_connection, query).fetchall();
+        result = execute_query(db_connection, quer
+        y).fetchall();
         print(result)
 
         return render_template('people_add_new.html', planets = result)
@@ -174,6 +287,7 @@ def update_people(id):
     elif request.method == 'POST':
         print("Update people!");
         character_id = request.form['character_id']
+        
         fname = request.form['fname']
         lname = request.form['lname']
         age = request.form['age']

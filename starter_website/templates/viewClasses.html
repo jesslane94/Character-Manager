@@ -34,7 +34,7 @@
               <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="addCharacters.html">Add Character</a>
+              <a class="nav-link" href="addNewCharacter.html">Add Character</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="viewCharacters.html">View/Manage Characters</a>
@@ -65,56 +65,30 @@
 <!-- Format similar to the view Characters page, with an update button that will lead to the 
 corresponding update html page-->
 
-<form method = "post">
-  <fieldset>Select Class to Modify:
   
-          <select name = "classDropDown">
-              <option value = "Rogue" selected>Rogue</option>
-              <option value = "Sorceress" selected>Sorceress</option>
-              <option value = "Ranger" selected>Ranger</option>
-              <option value = "Cleric" selected>Cleric</option>
-              <option value = "Druid" selected>Druids</option>
-              <option disabled selected value>Select An Option</option>
-          </select>
-  
-      <input type="submit" value="Modify Class">
-  </fieldset>
-  </form>
-  
-  <br>
-  
-  <form method = "post">
-      
-  <label>Select Class to Delete: </label>
-      <select name = "classDropDown">
-          <option value = "Rogue" selected>Rogue</option>
-          <option value = "Sorceress" selected>Sorceress</option>
-          <option value = "Ranger" selected>Ranger</option>
-          <option value = "Cleric" selected>Cleric</option>
-          <option value = "Druid" selected>Druids</option>
-          <option disabled selected value>Select An Option</option>
-      </select>
-  
-  <input type="submit" value="Delete Class">
-  </form>
-  
-	<table>
-	  <tr>
-	    <th>Class</th>
-	    <th>Class Description</th>
-	    <th>Stat Bonus</th>
-	  </tr>
-	  <tr>
-	    <td>Warriors</td>
-	    <td>They like picking fights with things</td>
-	    <td>+2 strength, +1 endurance</td>
-	  </tr>
-	  <tr>
-	    <td>Rogue</td>
-	    <td>The sneak around in a sneaky matter</td>
-	    <td>+3 dex</td>
-	  </tr>
-  </table>
-  
+<form method = "get">
+<fieldset>
+<legend>View Current Classes Here:</legend>
+<table border='1'>
+  <thead>
+      <th>Class Name</th>
+      <th>Stat Name</th>
+      <th>Stat Bonus</th>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td> {{ r.0 }}</td>
+      <td> {{ r[1] }}</td>
+      <td> {{ r[2] }}</td>
+      <td> <input type='button' name='Update' value='Update'
+          onclick="window.location = '/updateClass/{{r[3]}}'"> </td>
+      <!-- <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/delete_people/{{r[4]}}'"> </td> -->
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p></p>
+
 </body>
 </html>

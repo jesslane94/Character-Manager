@@ -34,7 +34,7 @@ CREATE TABLE spells (
 CREATE TABLE guilds (
    guild_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    guild_name VARCHAR(255) NOT NULL,
-   guild_specialization VARCHAR(255) NOT NULL,
+   guild_description VARCHAR(255) NOT NULL,
    char_id int(11),
    FOREIGN KEY(char_id) REFERENCES characters(char_id)
         ON DELETE CASCADE

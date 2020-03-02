@@ -5,8 +5,8 @@ VALUES ( firstname_input, lastname_input, str_input, dex_input, end_input, int_i
 INSERT INTO spells (spell_name, spell_level, spell_description)
 VALUES ( spell_name_input, spell_level_input, spell_description_input)
 
-INSERT INTO guilds (guild_name, guild_specialization)
-VALUES ( guild_name_input, guild_specialization_input)
+INSERT INTO guilds (guild_name, guild_description)
+VALUES ( guild_name_input, guild_description_input)
 
 INSERT INTO classes (class_name, stat_bonus)
 VALUES ( class_name_input, stat_bonus_input)
