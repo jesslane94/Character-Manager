@@ -51,10 +51,10 @@ CREATE TABLE classes_spells (
     class_id INT(11) NOT NULL,
     spell_id INT(11) NOT NULL,
     FOREIGN KEY(class_id) REFERENCES classes(class_id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
         ON UPDATE CASCADE,
     FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
         ON UPDATE CASCADE 
 );
 
@@ -62,9 +62,9 @@ CREATE TABLE characters_spells (
     char_id INT(11) NOT NULL,
     spell_id INT(11) NOT NULL,
     FOREIGN KEY(char_id) REFERENCES characters(char_id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
         ON UPDATE CASCADE,
     FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
         ON UPDATE CASCADE 
 );

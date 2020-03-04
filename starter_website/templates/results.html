@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Add Characters</title>
+    <title>Update Character</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -52,79 +52,36 @@
             </li>
           </ul>
         </div>
-    </nav> 
-    <br>
-	<form id="addCharacter" action ="/addNewCharacter" method = "post">
-        <fieldset>
-			
-			<legend>Add Character Here:</legend>
-			
-			<label> First Name:
-                <input type ="text" name ="firstName" size="20" maxlength="20">
-            </label>
-			
-			<br/><br/>
+    </nav>  
+</br>
 
-			<label> Last Name:
-                <input type ="text" name ="lastName" size="20" maxlength="20">
-            </label>
+<form method = "get" action = "/search">
+<fieldset>
+  
+  <legend>Characters:</legend>
+  <table border='1'>
+    <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Strength</th>
+        <th>Dexterity</th>
+        <th>Endurance</th>
+        <th>Intelligence</th>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr>
+        <td> {{ r.0 }}</td>
+        <td> {{ r[1] }}</td>
+        <td> {{ r[2] }}</td>
+        <td> {{ r[3] }}</td>
+        <td> {{ r[4] }}</td>
+        <td> {{ r[5] }}</td>
+      {% endfor %}
+    </tbody>
+</table>
+<p></p>
 
-            <br/><br/>
-			
-			<label>Strength:
-                <input type ="number" name ="strength" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
-
-			<label>Dexterity:
-                <input type ="number" name ="dexterity" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
-
-			<label>Endurance:
-                <input type ="number" name ="endurance" size="1" maxlength="2">
-            </label>
-			
-			<br/><br/>
-
-			<label>Intelligence:
-                <input type ="number" name ="intelligence" size="1" maxlength="2">
-            </label>
-
-            <p></p>
-			
-			<label>Select Guild: </label>
-                <select name= "guilds">
-                    <!-- display all guilds inside this dropdown -->
-                        {% for g in guilds %}
-                          <option value="{{ g[0] }}" > {{ g[1] }}</option>
-                        {% endfor %}
-                    </select><br>
-			<p></p>
-
-            <label>Select Class: </label>
-            <select name="classes">
-                <!-- display all classes inside this dropdown -->
-                    {% for c in classes %}
-                      <option value="{{ c[0] }}">{{ c[1] }}</option>
-                    {% endfor %}
-                </select><br>
-            <p></p>
-            
-            <!--  Will be implemented in MODIFY/UPDATE iteration
-            <label>Select Spell: </label>
-            <select name="spells">
-                <!-- display all classes inside this dropdown 
-                    {% for s in spells %}
-                      <option value="{{ s[0] }}">{{ s[1] }}</option>
-                    {% endfor %}
-                </select><br> -->
-			<p></p>
-
-			<input type="submit" value="Submit">
-		</fieldset>
-    </form>
 </body>
 </html>
+

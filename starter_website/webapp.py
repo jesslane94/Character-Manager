@@ -1,6 +1,6 @@
-from flask import Flask, render_template
-from flask import request, redirect
+from flask import Flask, render_template, request, redirect
 from db_connector.db_connector import connect_to_database, execute_query
+
 #create the web application
 webapp = Flask(__name__)
 
@@ -11,9 +11,10 @@ def index():
     return render_template('index.html')
 
 @webapp.route('/viewCharacters')
+
 def viewCharacters():
     db_connection = connect_to_database()
-    query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence FROM characters"
+    query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters"
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('viewCharacters.html', rows=result)
@@ -24,13 +25,13 @@ def updateCharacter(id):
     
     #display existing data
     if request.method == 'GET':
-        character_query = 'SELECT first_name, last_name, strength, dexterity, endurance, intelligence FROM characters WHERE char_id = %s' % (id)
+        character_query = 'SELECT char_id, first_name, last_name, strength, dexterity, endurance, intelligence FROM characters WHERE char_id = %s' % (id)
         character_result = execute_query(db_connection, character_query).fetchone()
 
         if character_result == None:
             return "No such character found!"
 
-        return render_template('updateCharacter.html', person = character_result)
+        return render_template('updateCharacter.html', character = character_result)
         
     elif request.method == 'POST':
         print("Update characters!");
@@ -65,6 +66,11 @@ def addNewCharacter():
         class_query = 'SELECT class_id, class_name FROM classes'
         class_result = execute_query(db_connection, class_query).fetchall(); 
 
+        """ Will be used during implementation of UPDATE/MODIFY
+        spell_query = 'SELECT spell_id, spell_name FROM spells'
+        spell_result = execute_query(db_connection, guild_query).fetchall();
+        """ 
+
         return render_template('addNewCharacter.html', guilds = guild_result, classes = class_result)
 
     elif request.method == 'POST':
@@ -85,10 +91,34 @@ def addNewCharacter():
 
         return ('Character added!')
 
+"""
+@app.route('/search', methods=['POST','GET'])
+def search():
+
+    if request.method == "POST":
+        book = request.form['firstName']
+
+        # search by author or book
+        cursor.execute("SELECT first_name from characters WHERE first_name LIKE %s", (book))
+        conn.commit()
+        data = cursor.fetchall()
+
+        # all in the search box will return all the tuples
+        if len(data) == 0 and book == 'all': 
+            cursor.execute("SELECT name, author from Book")
+            conn.commit()
+            data = cursor.fetchall()
+        return render_template('searchCharacters.html', data=data)
+
+    return render_template('searchCharacters.html')
+
+
+    """        
+
 @webapp.route('/viewClasses')
 def viewClasses():
     db_connection = connect_to_database()
-    query = "SELECT class_name, stat_bonus_name, stat_bonus FROM classes"
+    query = "SELECT class_name, stat_bonus_name, stat_bonus, class_id FROM classes"
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('viewClasses.html', rows=result)
@@ -120,7 +150,7 @@ def addClass():
         execute_query(db_connection, query, data)
 
         return ('Class added!')
-    
+
 @webapp.route('/viewGuilds')
 def viewGuilds():
     db_connection = connect_to_database()
@@ -156,10 +186,40 @@ def addGuild():
 
         return ('Guild added!')
 
+@webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
+def updateClass(id):
+    db_connection = connect_to_database()
+    
+    #display existing data
+    if request.method == 'GET':
+        class_query = 'SELECT class_id, class_name, stat_bonus, stat_bonus_name FROM spells WHERE class_id = %s' % (id)
+        class_result = execute_query(db_connection, class_query).fetchone()
+
+        if class_query == None:
+            return "No such class found!"
+
+        return render_template('updateClass.html', classes = class_result)
+        
+    elif request.method == 'POST':
+        print("Update Class!");
+        class_id = request.form['class_id']
+        class_name, = request.form['class_name,']
+        stat_bonus = request.form['stat_bonus']
+        stat_bonus_name = request.form['stat_bonus_name']
+
+        print(request.form);
+
+        query = "UPDATE classes SET class_name = %s, stat_bonus= %s, stat_bonus_name = %s class_id = %s"
+        data = (class_id, class_name, stat_bonus, stat_bonus_name)
+        result = execute_query(db_connection, query, data)
+        print(str(result.rowcount) + " row(s) updated!");
+
+        return redirect('/viewClasses')
+
 @webapp.route('/viewSpells')
 def viewSpells():
     db_connection = connect_to_database()
-    query = "SELECT spell_name, spell_description, spell_level FROM spells"
+    query = "SELECT spell_name, spell_description, spell_level, spell_id FROM spells"
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('viewSpells.html', rows=result)
@@ -192,123 +252,32 @@ def addSpell():
 
         return ('Spell added!')
 
+@webapp.route('/updateSpell/<int:id>', methods=['POST','GET'])
+def updateSpell(id):
+    db_connection = connect_to_database()
     
-    """
-    #Populate query
-    query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence) VALUES (%s, %s, %s, %s, %s, %s)'
-    data = (firstName, lastName, strength, dexterity, endurance, intelligence)
-
-    #Connect to the database and submite the query
-    db_connection = connect_to_database()
-    execute_query(db_connection, query, data) 
-    
-    if request.method == 'GET':
-        query = 'SELECT char_id FROM characters'
-        result = execute_query(db_connection, query).fetchall();
-        print(result)
-
-        return render_template('addCharacters.html', character = result)
-
-    elif request.method == 'POST':
-        print("Add new character!");
-        firstName = request.form['firstName']
-        lastName = request.form['lastName']
-        strength = request.form['strength']
-        dexterity = request.form['dexterity']
-        endurance = request.form['endurance']
-        intelligence = request.form['intelligence']
-
-        query = 'INSERT INTO characters (firstName, lastName, strength, dexterity, endurance,intelligence) VALUES (%s,%s,%s,%s, %s,%s)'
-        data = (firstName, lastName, strength, dexterity, endurance,intelligence)
-        execute_query(db_connection, query, data)
-        return ('Character added!'); """
-
-""" 
-@webapp.route('/browse_bsg_people')
-#the name of this function is just a cosmetic thing
-def browse_people():
-    print("Fetching and rendering people web page")
-    db_connection = connect_to_database()
-    query = "SELECT fname, lname, homeworld, age, character_id from bsg_people;"
-    result = execute_query(db_connection, query).fetchall();
-    print(result)
-    return render_template('people_browse.html', rows=result) """
-
-""" @webapp.route('/add_new_people', methods=['POST','GET'])
-def add_new_people():
-    db_connection = connect_to_database()
-    if request.method == 'GET':
-        query = 'SELECT planet_id, name from bsg_planets'
-        result = execute_query(db_connection, quer
-        y).fetchall();
-        print(result)
-
-        return render_template('people_add_new.html', planets = result)
-    elif request.method == 'POST':
-        print("Add new people!");
-        fname = request.form['fname']
-        lname = request.form['lname']
-        age = request.form['age']
-        homeworld = request.form['homeworld']
-
-        query = 'INSERT INTO bsg_people (fname, lname, age, homeworld) VALUES (%s,%s,%s,%s)'
-        data = (fname, lname, age, homeworld)
-        execute_query(db_connection, query, data)
-        return ('Person added!');
-
-@webapp.route('/')
-def index():
-    return "<p>Are you looking for /db-test or /hello or <a href='/browse_bsg_people'>/browse_bsg_people</a> or /add_new_people or /update_people/id or /delete_people/id </p>"
-
-@webapp.route('/db-test')
-def test_database_connection():
-    print("Executing a sample query on the database using the credentials from db_credentials.py")
-    db_connection = connect_to_database()
-    query = "SELECT * from bsg_people;"
-    result = execute_query(db_connection, query);
-    return render_template('db_test.html', rows=result)
-
-#display update form and process any updates, using the same function
-@webapp.route('/update_people/<int:id>', methods=['POST','GET'])
-def update_people(id):
-    db_connection = connect_to_database()
     #display existing data
     if request.method == 'GET':
-        people_query = 'SELECT character_id, fname, lname, homeworld, age from bsg_people WHERE character_id = %s' % (id)
-        people_result = execute_query(db_connection, people_query).fetchone()
+        spell_query = 'SELECT spell_id, spell_name, spell_level, spell_description FROM spells WHERE spell_id = %s' % (id)
+        spell_result = execute_query(db_connection, spell_query).fetchone()
 
-        if people_result == None:
-            return "No such person found!"
+        if spell_result == None:
+            return "No such spell found!"
 
-        planets_query = 'SELECT planet_id, name from bsg_planets'
-        planets_results = execute_query(db_connection, planets_query).fetchall();
-
-        return render_template('people_update.html', planets = planets_results, person = people_result)
-    elif request.method == 'POST':
-        print("Update people!");
-        character_id = request.form['character_id']
+        return render_template('updateSpell.html', spell = spell_result)
         
-        fname = request.form['fname']
-        lname = request.form['lname']
-        age = request.form['age']
-        homeworld = request.form['homeworld']
+    elif request.method == 'POST':
+        print("Update Spells!");
+        spell_id = request.form['spell_id']
+        spell_name = request.form['spell_name']
+        spell_level = request.form['spell_level']
+        spell_description = request.form['spell_description']
 
         print(request.form);
 
-        query = "UPDATE bsg_people SET fname = %s, lname = %s, age = %s, homeworld = %s WHERE character_id = %s"
-        data = (fname, lname, age, homeworld, character_id)
+        query = "UPDATE spells SET spell_name= %s, spell_level= %s, spell_description = %s spell_id = %s"
+        data = (spell_id, spell_name, spell_level, spell_description)
         result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated");
+        print(str(result.rowcount) + " row(s) updated!");
 
-        return redirect('/browse_bsg_people')
-
-@webapp.route('/delete_people/<int:id>')
-def delete_people(id):
-    '''deletes a person with the given id'''
-    db_connection = connect_to_database()
-    query = "DELETE FROM bsg_people WHERE character_id = %s"
-    data = (id,)
-
-    result = execute_query(db_connection, query, data)
-    return (str(result.rowcount) + "row deleted")
- """
+        return redirect('/viewSpells')
