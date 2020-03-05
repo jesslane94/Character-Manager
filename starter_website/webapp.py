@@ -11,7 +11,6 @@ def index():
     return render_template('index.html')
 
 @webapp.route('/viewCharacters')
-
 def viewCharacters():
     db_connection = connect_to_database()
     query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters"
@@ -91,6 +90,16 @@ def addNewCharacter():
 
         return ('Character added!')
 
+@webapp.route('/deleteCharacter/<int:id>')
+def deleteCharacter(id):
+    db_connection = connect_to_database()
+
+    query = "DELETE FROM characters WHERE char_id = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return (str(result.rowcount) + "row deleted")
+
 """
 @app.route('/search', methods=['POST','GET'])
 def search():
@@ -152,7 +161,6 @@ def addClass():
         return ('Class added!')
 
 @webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
-
 def updateClass(id):
     db_connection = connect_to_database()
     
@@ -183,12 +191,11 @@ def updateClass(id):
 
         return redirect('/viewClasses')
 
-@webapp.route('/deleteCharacter/<int:id>')
-
-def deleteCharacter(id):
+@webapp.route('/deleteClass/<int:id>')
+def deleteClass(id):
     db_connection = connect_to_database()
 
-    query = "DELETE FROM characters WHERE char_id = %s"
+    query = "DELETE FROM classes WHERE class_id = %s"
     data = (id,)
 
     result = execute_query(db_connection, query, data)
@@ -266,6 +273,16 @@ def updateGuild(id):
 
         return redirect('/viewGuilds')
 
+@webapp.route('/deleteGuild/<int:id>')
+def deleteClass(id):
+    db_connection = connect_to_database()
+
+    query = "DELETE FROM guilds WHERE guild_id = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return (str(result.rowcount) + "row deleted")
+
 @webapp.route('/viewSpells')
 def viewSpells():
     db_connection = connect_to_database()
@@ -332,3 +349,13 @@ def updateSpell(id):
         print(str(result.rowcount) + " row(s) updated!");
 
         return redirect('/viewSpells')
+
+@webapp.route('/deleteSpell/<int:id>')
+def deleteClass(id):
+    db_connection = connect_to_database()
+
+    query = "DELETE FROM spells WHERE spell_id = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return (str(result.rowcount) + "row deleted")

@@ -108,9 +108,8 @@ corresponding update html page-->
         <tr>
           <td> {{ r[0] }}</td>
           <td> {{ r[1] }}</td>
-          <td> <input type='button' name='Update' value='Update'
-              onclick="window.location = '/updateGuild/{{r[2]}}'"> </td>
-          <!-- <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/delete_people/{{r[4]}}'"> </td> -->
+          <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateGuild/{{r[2]}}'"> </td>
+          <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteGuild/{{r[2]}}'"> </td>
         </tr>
         {% endfor %}
       </tbody>
