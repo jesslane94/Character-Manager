@@ -81,9 +81,8 @@
           <td> {{ r[3] }}</td>
           <td> {{ r[4] }}</td>
           <td> {{ r[5] }}</td>
-          <td> <input type='button' name='Update' value='Update'
-              onclick="window.location = '/updateCharacter/{{r[6]}}'"> </td>
-          <!-- <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/delete_people/{{r[4]}}'"> </td> -->
+          <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateCharacter/{{r[6]}}'"> </td>
+          <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteCharacter/{{r[6]}}'"> </td>
         </tr>
         {% endfor %}
       </tbody>

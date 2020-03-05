@@ -183,6 +183,16 @@ def updateClass(id):
 
         return redirect('/viewClasses')
 
+@webapp.route('/deleteCharacter/<int:id>')
+
+def deleteCharacter(id):
+    db_connection = connect_to_database()
+
+    query = "DELETE FROM characters WHERE char_id = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return (str(result.rowcount) + "row deleted")
 
 @webapp.route('/viewGuilds')
 def viewGuilds():
