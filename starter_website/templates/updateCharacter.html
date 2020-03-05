@@ -27,7 +27,7 @@
               <a class="nav-link" href="/index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/addNewCharacter">Add Character</a>
+              <a class="nav-link" href="/addCharacter">Add Character</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
@@ -62,13 +62,13 @@
 			<legend>Update Character Here:</legend>
 			<input type="hidden" name="char_id" value="{{character[0]}}">
 			<label> First Name:
-                <input type ="text" name ="first_name" value="{{character[1]}}" size="20" maxlength="20">
+                <input type ="text" name ="first_name" value="{{character[1]}}" maxlength="255">
             </label>
 			
 			<br/><br/>
 
 			<label> Last Name:
-                <input type ="text" name ="last_name" value="{{character[2]}}" size="20" maxlength="20">
+                <input type ="text" name ="last_name" value="{{character[2]}}" maxlength="255">>
             </label>
 
             <br/><br/>
@@ -135,10 +135,9 @@
 					<option value = "Magic Missile" selected>Magic Missle</option>
 					<option disabled selected value>Select An Option</option>
 				</select> -->
-			<p><button type="deleteCharacter">Delete Current Character</button></p>	
-				<p></p>
-			<input type="submit" value="Submit">
-			</fieldset>
+
+        <input type="submit" value="Submit">
+        </fieldset>
 	</form>
 	<br>
 </body>

@@ -27,7 +27,7 @@
               <a class="nav-link" href="/index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/addNewCharacter">Add Character</a>
+              <a class="nav-link" href="/addCharacter">Add Character</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
@@ -54,19 +54,19 @@
         </div>
     </nav> 
     <br>
-	<form id="addCharacter" action ="/addNewCharacter" method = "post">
+	<form id="addCharacter" action ="/addCharacter" method = "post">
         <fieldset>
 			
 			<legend>Add Character Here:</legend>
 			
 			<label> First Name:
-                <input type ="text" name ="firstName" size="20" maxlength="20">
+                <input type ="text" name ="firstName" maxlength="255">
             </label>
 			
 			<br/><br/>
 
 			<label> Last Name:
-                <input type ="text" name ="lastName" size="20" maxlength="20">
+                <input type ="text" name ="lastName" maxlength="255">
             </label>
 
             <br/><br/>

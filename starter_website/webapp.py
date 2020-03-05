@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from db_connector.db_connector import connect_to_database, execute_query
 
 #create the web application
 webapp = Flask(__name__)
+webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #provide a route where requests on the web application can be addressed
 @webapp.route('/index')
@@ -51,7 +52,7 @@ def updateCharacter(id):
 
         return redirect('/viewCharacters')
 
-@webapp.route('/addNewCharacter', methods=['POST','GET'])
+@webapp.route('/addCharacter', methods=['POST','GET'])
 def addNewCharacter():
 
     db_connection = connect_to_database()
@@ -269,12 +270,15 @@ def updateGuild(id):
         query = "UPDATE guilds SET guild_name= %s, guild_description = %s WHERE guild_id = %s"
         data = (guild_name, guild_description, guild_id)
         result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated!");
+        # print(str(result.rowcount) + " row(s) updated!");
+        
+        flash('Character Updated!')
 
         return redirect('/viewGuilds')
+        
 
 @webapp.route('/deleteGuild/<int:id>')
-def deleteClass(id):
+def deleteGuild(id):
     db_connection = connect_to_database()
 
     query = "DELETE FROM guilds WHERE guild_id = %s"
@@ -351,7 +355,7 @@ def updateSpell(id):
         return redirect('/viewSpells')
 
 @webapp.route('/deleteSpell/<int:id>')
-def deleteClass(id):
+def deleteSpell(id):
     db_connection = connect_to_database()
 
     query = "DELETE FROM spells WHERE spell_id = %s"
