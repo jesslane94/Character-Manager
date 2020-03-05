@@ -151,10 +151,43 @@ def addClass():
 
         return ('Class added!')
 
+@webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
+
+def updateClass(id):
+    db_connection = connect_to_database()
+    
+    #display existing data
+    if request.method == 'GET':
+        class_query = 'SELECT class_id, class_name, stat_bonus, stat_bonus_name FROM classes WHERE class_id = %s' % (id)
+        class_result = execute_query(db_connection, class_query).fetchone()
+
+        if class_query == None:
+            return "No such class found!"
+
+        return render_template('updateClass.html', classes = class_result)
+        
+    elif request.method == 'POST':
+        print("Update Class!");
+        
+        class_id = request.form['class_id']
+        class_name = request.form['class_name']
+        stat_bonus = request.form['stat_bonus']
+        stat_bonus_name = request.form['stat_bonus_name']
+      
+        print(request.form);
+
+        query = "UPDATE classes SET class_name = %s, stat_bonus= %s, stat_bonus_name = %s WHERE class_id = %s"
+        data = (class_name, stat_bonus, stat_bonus_name, class_id)
+        result = execute_query(db_connection, query, data)
+        print(str(result.rowcount) + " row(s) updated!");
+
+        return redirect('/viewClasses')
+
+
 @webapp.route('/viewGuilds')
 def viewGuilds():
     db_connection = connect_to_database()
-    query = "SELECT guild_name, guild_description FROM guilds"
+    query = "SELECT guild_name, guild_description, guild_id FROM guilds"
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('viewGuilds.html', rows=result)
@@ -186,35 +219,42 @@ def addGuild():
 
         return ('Guild added!')
 
-@webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
-def updateClass(id):
+@webapp.route('/updateGuild/<int:id>', methods=['POST','GET'])
+def updateGuild(id):
+    
     db_connection = connect_to_database()
     
     #display existing data
     if request.method == 'GET':
-        class_query = 'SELECT class_id, class_name, stat_bonus, stat_bonus_name FROM spells WHERE class_id = %s' % (id)
-        class_result = execute_query(db_connection, class_query).fetchone()
 
-        if class_query == None:
-            return "No such class found!"
+        guild_query = 'SELECT guild_id, guild_name, guild_description FROM guilds WHERE guild_id = %s' % (id)
+        guild_result = execute_query(db_connection, guild_query).fetchone()
 
-        return render_template('updateClass.html', classes = class_result)
+        if guild_query == None:
+            return "No such guild found!"
+
+        return render_template('updateGuild.html', guild = guild_result)
         
     elif request.method == 'POST':
-        print("Update Class!");
-        class_id = request.form['class_id']
-        class_name, = request.form['class_name,']
-        stat_bonus = request.form['stat_bonus']
-        stat_bonus_name = request.form['stat_bonus_name']
+
+        print("Updated Guild!");
+        guild_id = request.form['guild_id']
+        print(guild_id)
+
+        guild_name = request.form['guild_name']
+        print(guild_name)
+
+        guild_description = request.form['guild_description']
+        print(guild_description)
 
         print(request.form);
 
-        query = "UPDATE classes SET class_name = %s, stat_bonus= %s, stat_bonus_name = %s class_id = %s"
-        data = (class_id, class_name, stat_bonus, stat_bonus_name)
+        query = "UPDATE guilds SET guild_name= %s, guild_description = %s WHERE guild_id = %s"
+        data = (guild_name, guild_description, guild_id)
         result = execute_query(db_connection, query, data)
         print(str(result.rowcount) + " row(s) updated!");
 
-        return redirect('/viewClasses')
+        return redirect('/viewGuilds')
 
 @webapp.route('/viewSpells')
 def viewSpells():
@@ -267,6 +307,7 @@ def updateSpell(id):
         return render_template('updateSpell.html', spell = spell_result)
         
     elif request.method == 'POST':
+
         print("Update Spells!");
         spell_id = request.form['spell_id']
         spell_name = request.form['spell_name']
@@ -275,8 +316,8 @@ def updateSpell(id):
 
         print(request.form);
 
-        query = "UPDATE spells SET spell_name= %s, spell_level= %s, spell_description = %s spell_id = %s"
-        data = (spell_id, spell_name, spell_level, spell_description)
+        query = "UPDATE spells SET spell_name= %s, spell_level= %s, spell_description = %s WHERE spell_id = %s"
+        data = (spell_name, spell_level, spell_description, spell_id)
         result = execute_query(db_connection, query, data)
         print(str(result.rowcount) + " row(s) updated!");
 

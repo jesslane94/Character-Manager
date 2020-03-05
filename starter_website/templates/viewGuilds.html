@@ -106,7 +106,7 @@ corresponding update html page-->
       <tbody>
         {% for r in rows %}
         <tr>
-          <td> {{ r.0 }}</td>
+          <td> {{ r[0] }}</td>
           <td> {{ r[1] }}</td>
           <td> <input type='button' name='Update' value='Update'
               onclick="window.location = '/updateGuild/{{r[2]}}'"> </td>

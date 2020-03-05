@@ -56,6 +56,31 @@
 <br>
 
 <!-- Add form here for updated guild name, guild description -->
+<!-- Add form here for updated class name, description, bonus -->
+<form method = "post" id= "updateGuild" action="/updateGuild/{{guild[0]}}">
+  <fieldset>
+
+<legend>Update Guild Here:</legend>
+<input type="hidden" name="guild_id" value="{{guild[0]}}">
+  <label> Guild Name:
+            <input type ="text" name ="guild_name" value="{{guild[1]}}" maxlength="20">
+        </label>
+
+  <br/><br/>
+
+  <label> Guild Description:
+            <input type ="text" name ="guild_description" value="{{guild[2]}}" maxlength="20">
+        </label>
+
+        <br/><br/>
+
+  <p><button type="deleteCharacter">Delete Current Guild</button></p>	
+          <p></p>
+        <input type="submit" value="Submit">
+        </fieldset>
+
+  <br/><br/>
+
 
 </body>
 </html>
