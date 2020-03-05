@@ -120,9 +120,8 @@ corresponding update html page-->
         <td> {{ r[0] }}</td>
         <td> {{ r[1] }}</td>
         <td> {{ r[2] }}</td>
-        <td> <input type='button' name='Update' value='Update'
-            onclick="window.location = '/updateSpell/{{r[3]}}'"> </td>
-        <!-- <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/delete_people/{{r[4]}}'"> </td> -->
+        <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateSpell/{{r[3]}}'"> </td>
+        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteSpell/{{r[3]}}'"> </td>
       </tr>
       {% endfor %}
     </tbody>
