@@ -6,6 +6,7 @@ webapp = Flask(__name__)
 webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #provide a route where requests on the web application can be addressed
+@webapp.route('/')
 @webapp.route('/index')
 #provide a view (fancy name for a function) which responds to any requests on this route
 def index():
@@ -123,7 +124,17 @@ def search():
     return render_template('searchCharacters.html')
 
 
-    """        
+    """      
+@webapp.route('/search', methods=['POST','GET'])
+def search():
+    db_connection = connect_to_database()
+    if request.method == 'POST':
+        param = request.form.get(firstName, False)
+        query = ("SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id from characters WHERE first_name LIKE %s", ("%" + param + "%",))
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
+        return render_template('viewCharacters.html', rows=result) 
+
 
 @webapp.route('/viewClasses')
 def viewClasses():
