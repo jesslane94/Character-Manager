@@ -124,17 +124,24 @@ def search():
     return render_template('searchCharacters.html')
 
 
-    """      
+    """   
+@webapp.route('/searchCharacters', methods=['GET'])
+def displaySearchPage():
+    return render_template('searchCharacters.html')
+
 @webapp.route('/search', methods=['POST','GET'])
 def search():
     db_connection = connect_to_database()
+
     if request.method == 'POST':
-        param = request.form.get(firstName, False)
-        query = ("SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id from characters WHERE first_name LIKE %s", ("%" + param + "%",))
+        firstName = request.form.get('f_name', False)
+        print(firstName)
+        query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name = '%s'" % (firstName)
         result = execute_query(db_connection, query).fetchall()
         print(result)
-        return render_template('viewCharacters.html', rows=result) 
-
+        if len(result) == 0:
+            return ('No characters found by that name!')
+        return render_template('results.html', rows=result) 
 
 @webapp.route('/viewClasses')
 def viewClasses():

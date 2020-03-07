@@ -59,19 +59,21 @@
 </nav> 
 
 <!-- will this pic ever work LOL -->
-<img src="{{ url_for('static', filename='indexBackground.jpg') }}" />
+<img src="{{ url_for('static', filename='indexBackground.jpg') }}" class = "img-fluid" />
 <br><br>
 
 <p class = "text-white text-center"><i>What Is Implemented So Far</i></p> 
 <ul class = "text-white">
   <li>'Add' Page for each entity. The user can add a new character/spell/class/guild to the database.</li>
   <li>'View' Page for each entity's current entries. This page will also have a button to lead you to a page where you can update the corresponding entity.</li>
+  <li>'Search' function for characters.</li>
+  <li>'Update/Delete' functions for all entities.</li>
 </ul>
 
 <p class = "text-white text-center"><i>What Will Be Implemented</i></p> 
 <ul class = "text-white">
   <li>Search Function for each view page.</li>
-  <li>Update/Delete Functions for the entities.</li>
+  <li>Connect all the many to many relationships.</li>
 </ul>
 
 </body>
