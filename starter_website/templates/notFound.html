@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Add Class</title>
+    <title>Query Not Found</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
-        form {
+        h2 {
             padding-left: 25px;
         }
     </style>
@@ -71,43 +71,7 @@
     </nav> 
 <br>
 
-<form id = addClass action ="/addClass" method = "post">
-			
-    <legend>Add Class</legend>
-    
-    <label>Class Name:
-        <input type ="text" name ="className" maxlength="20">
-    </label>
-    
-    <br/><br/>
-
-    <label>Bonus Stats for Class:
-        <input type ="number" name ="bonusStat" maxlength="20">
-    </label>
-
-    <br></br>
-
-    <label>Bonus Stat Name:
-        <input type ="text" name ="statBonusName" maxlength="255">
-    </label>
-
-    <br></br>
-
-<!--     
-    <label>Select Spell: </label>
-    <select name="spells">
-            display all spells inside this dropdown 
-            {% for s in spells %}
-                <option value="{{ s[0] }}">{{ s[1] }}</option>
-            {% endfor %}
-        </select><br>
-    <p></p>  -->
-
-    <input type="submit" value="Add Class">
-</form>
-
-<br>
-
+<h2> Nothing was found! Try again. </h2>
 
 </body>
 </html>

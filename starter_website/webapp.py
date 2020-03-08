@@ -15,7 +15,8 @@ def index():
 @webapp.route('/viewCharacters')
 def viewCharacters():
     db_connection = connect_to_database()
-    query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters"
+    # query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters"
+    query = "SELECT characters.first_name, characters.last_name, characters.strength, characters.dexterity, characters.endurance, characters.intelligence, guilds.guild_name, classes.class_name, characters.char_id FROM characters LEFT JOIN guilds ON characters.guild_id = guilds.guild_id LEFT JOIN classes ON characters.class_id = classes.class_id"
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('viewCharacters.html', rows=result)
@@ -30,7 +31,7 @@ def updateCharacter(id):
         character_result = execute_query(db_connection, character_query).fetchone()
 
         if character_result == None:
-            return "No such character found!"
+            return render_template('notFound.html')
 
         return render_template('updateCharacter.html', character = character_result)
         
@@ -43,13 +44,15 @@ def updateCharacter(id):
         dexterity = request.form['dexterity']
         endurance = request.form['endurance']
         intelligence = request.form['intelligence']
+        # add guild
+        # add class
+        # add spells, populate from class type
 
         print(request.form);
 
         query = "UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s  WHERE char_id = %s"
         data = (first_name, last_name, strength, dexterity, endurance, intelligence, char_id)
         result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated!");
 
         return redirect('/viewCharacters')
 
@@ -67,7 +70,7 @@ def addNewCharacter():
         class_query = 'SELECT class_id, class_name FROM classes'
         class_result = execute_query(db_connection, class_query).fetchall(); 
 
-        """ Will be used during implementation of UPDATE/MODIFY
+        """ populate spell options based on class
         spell_query = 'SELECT spell_id, spell_name FROM spells'
         spell_result = execute_query(db_connection, guild_query).fetchall();
         """ 
@@ -85,12 +88,13 @@ def addNewCharacter():
         intelligence = request.form.get('intelligence', False)
         guildID = request.form.get('guilds', False)
         classID = request.form.get('classes', False)
+        # add spells?
 
         query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, guild_id, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
         data = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID)
         execute_query(db_connection, query, data)
 
-        return ('Character added!')
+        return redirect('/viewCharacters')
 
 @webapp.route('/deleteCharacter/<int:id>')
 def deleteCharacter(id):
@@ -100,31 +104,8 @@ def deleteCharacter(id):
     data = (id,)
 
     result = execute_query(db_connection, query, data)
-    return (str(result.rowcount) + "row deleted")
+    return redirect('viewCharacters')
 
-"""
-@app.route('/search', methods=['POST','GET'])
-def search():
-
-    if request.method == "POST":
-        book = request.form['firstName']
-
-        # search by author or book
-        cursor.execute("SELECT first_name from characters WHERE first_name LIKE %s", (book))
-        conn.commit()
-        data = cursor.fetchall()
-
-        # all in the search box will return all the tuples
-        if len(data) == 0 and book == 'all': 
-            cursor.execute("SELECT name, author from Book")
-            conn.commit()
-            data = cursor.fetchall()
-        return render_template('searchCharacters.html', data=data)
-
-    return render_template('searchCharacters.html')
-
-
-    """   
 @webapp.route('/searchCharacters', methods=['GET'])
 def displaySearchPage():
     return render_template('searchCharacters.html')
@@ -140,7 +121,7 @@ def search():
         result = execute_query(db_connection, query).fetchall()
         print(result)
         if len(result) == 0:
-            return ('No characters found by that name!')
+            return render_template('notFound.html')
         return render_template('results.html', rows=result) 
 
 @webapp.route('/viewClasses')
@@ -169,6 +150,7 @@ def addClass():
 
         className = request.form.get('className', False)
         bonusStat = request.form.get('bonusStat', False)
+        #should we have the names populate from the base character stats? or allow users to add their own stat types?
         statBonusName = request.form.get('statBonusName', False)
 
         query = 'INSERT INTO classes (class_name, stat_bonus, stat_bonus_name) VALUES (%s, %s, %s)'
@@ -177,7 +159,7 @@ def addClass():
         data = (className, bonusStat, statBonusName)
         execute_query(db_connection, query, data)
 
-        return ('Class added!')
+        return redirect('/viewClasses')
 
 @webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
 def updateClass(id):
@@ -189,7 +171,7 @@ def updateClass(id):
         class_result = execute_query(db_connection, class_query).fetchone()
 
         if class_query == None:
-            return "No such class found!"
+            return render_template('notFound.html')
 
         return render_template('updateClass.html', classes = class_result)
         
@@ -206,7 +188,6 @@ def updateClass(id):
         query = "UPDATE classes SET class_name = %s, stat_bonus= %s, stat_bonus_name = %s WHERE class_id = %s"
         data = (class_name, stat_bonus, stat_bonus_name, class_id)
         result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated!");
 
         return redirect('/viewClasses')
 
@@ -218,7 +199,25 @@ def deleteClass(id):
     data = (id,)
 
     result = execute_query(db_connection, query, data)
-    return (str(result.rowcount) + "row deleted")
+    return redirect('/viewClasses')
+
+@webapp.route('/searchClasses', methods=['GET'])
+def displayClassSearchPage():
+    return render_template('searchClasses.html')
+
+@webapp.route('/searchForClass', methods=['POST','GET'])
+def searchClass():
+    db_connection = connect_to_database()
+
+    if request.method == 'POST':
+        className = request.form.get('c_name', False)
+        print(className)
+        query = "SELECT class_name, stat_bonus_name, stat_bonus, class_id FROM classes WHERE class_name = '%s'" % (className)
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
+        if len(result) == 0:
+            return render_template('notFound.html')
+        return render_template('resultsClass.html', rows=result) 
 
 @webapp.route('/viewGuilds')
 def viewGuilds():
@@ -253,7 +252,7 @@ def addGuild():
         data = (guildName, guildDescription)
         execute_query(db_connection, query, data)
 
-        return ('Guild added!')
+        return redirect('/viewGuilds')
 
 @webapp.route('/updateGuild/<int:id>', methods=['POST','GET'])
 def updateGuild(id):
@@ -267,7 +266,7 @@ def updateGuild(id):
         guild_result = execute_query(db_connection, guild_query).fetchone()
 
         if guild_query == None:
-            return "No such guild found!"
+            return render_template('notFound.html')
 
         return render_template('updateGuild.html', guild = guild_result)
         
@@ -289,8 +288,6 @@ def updateGuild(id):
         data = (guild_name, guild_description, guild_id)
         result = execute_query(db_connection, query, data)
         # print(str(result.rowcount) + " row(s) updated!");
-        
-        flash('Character Updated!')
 
         return redirect('/viewGuilds')
         
@@ -303,7 +300,25 @@ def deleteGuild(id):
     data = (id,)
 
     result = execute_query(db_connection, query, data)
-    return (str(result.rowcount) + "row deleted")
+    return redirect('viewGuilds')
+
+@webapp.route('/searchGuilds', methods=['GET'])
+def displayGuildSearchPage():
+    return render_template('searchGuilds.html')
+
+@webapp.route('/searchForGuild', methods=['POST','GET'])
+def searchGuild():
+    db_connection = connect_to_database()
+
+    if request.method == 'POST':
+        guildName = request.form.get('g_name', False)
+        print(guildName)
+        query = "SELECT guild_name, guild_description, guild_id FROM guilds WHERE guild_name = '%s'" % (guildName)
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
+        if len(result) == 0:
+            return render_template('notFound.html')
+        return render_template('resultsGuild.html', rows=result) 
 
 @webapp.route('/viewSpells')
 def viewSpells():
@@ -339,7 +354,7 @@ def addSpell():
         data = (spellName, spellLevel, spellDescription)
         execute_query(db_connection, query, data)
 
-        return ('Spell added!')
+        return redirect('/viewSpells')
 
 @webapp.route('/updateSpell/<int:id>', methods=['POST','GET'])
 def updateSpell(id):
@@ -351,7 +366,7 @@ def updateSpell(id):
         spell_result = execute_query(db_connection, spell_query).fetchone()
 
         if spell_result == None:
-            return "No such spell found!"
+            return render_template('notFound.html')
 
         return render_template('updateSpell.html', spell = spell_result)
         
@@ -380,4 +395,22 @@ def deleteSpell(id):
     data = (id,)
 
     result = execute_query(db_connection, query, data)
-    return (str(result.rowcount) + "row deleted")
+    return redirect('/viewSpells')
+
+@webapp.route('/searchSpells', methods=['GET'])
+def displaySpellSearchPage():
+    return render_template('searchSpells.html')
+
+@webapp.route('/searchForSpells', methods=['POST','GET'])
+def searchSpell():
+    db_connection = connect_to_database()
+
+    if request.method == 'POST':
+        spellName = request.form.get('s_name', False)
+        print(spellName)
+        query = "SELECT spell_name, spell_description, spell_level, spell_id FROM spells WHERE spell_name = '%s'" % (spellName)
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
+        if len(result) == 0:
+            return render_template('notFound.html')
+        return render_template('resultsSpell.html', rows=result) 

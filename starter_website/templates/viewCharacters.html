@@ -12,6 +12,9 @@
       form {
           padding-left: 25px;
       }
+      th, td {
+        padding: 5px;
+      }
   </style>
 </head>
 <body>
@@ -37,10 +40,16 @@
             <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchCharacters">Search Characters</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addClass">Add Class</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchClasses">Search Classes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/addGuild">Add Guild</a>
@@ -49,19 +58,24 @@
             <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addSpell">Add Spell</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchSpells">Search Spells</a>
+        </li>
       </ul>
     </div>
-  </nav> 
+</nav> 
 <br>
 
 <form method = "get">
-      <fieldset>
-    
+    <fieldset>
     <legend>View Current Characters Here:</legend>
     <table border='1'>
       <thead>
@@ -71,6 +85,10 @@
           <th>Dexterity</th>
           <th>Endurance</th>
           <th>Intelligence</th>
+          <th>Guild</th>
+          <th>Class</th>
+          <th>Update Character</th>
+          <th>Delete Character</th>
       </thead>
       <tbody>
         {% for r in rows %}
@@ -81,8 +99,10 @@
           <td> {{ r[3] }}</td>
           <td> {{ r[4] }}</td>
           <td> {{ r[5] }}</td>
-          <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateCharacter/{{r[6]}}'"> </td>
-          <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteCharacter/{{r[6]}}'"> </td>
+          <td> {{ r[6] }}</td>
+          <td> {{ r[7] }}</td>
+          <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateCharacter/{{r[8]}}'"> </td>
+          <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteCharacter/{{r[8]}}'"> </td>
         </tr>
         {% endfor %}
       </tbody>

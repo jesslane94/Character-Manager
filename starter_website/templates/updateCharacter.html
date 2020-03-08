@@ -8,7 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        form {
+            padding-left: 25px;
+        }
+    </style>
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
@@ -33,10 +37,16 @@
                 <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/searchCharacters">Search Characters</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/addClass">Add Class</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/searchClasses">Search Classes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/addGuild">Add Guild</a>
@@ -45,16 +55,21 @@
                 <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/addSpell">Add Spell</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/searchSpells">Search Spells</a>
+            </li>
           </ul>
         </div>
     </nav> 
 <br>
-    
 
 	<form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>
@@ -68,7 +83,7 @@
 			<br/><br/>
 
 			<label> Last Name:
-                <input type ="text" name ="last_name" value="{{character[2]}}" maxlength="255">>
+                <input type ="text" name ="last_name" value="{{character[2]}}" maxlength="255">
             </label>
 
             <br/><br/>

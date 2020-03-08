@@ -3,12 +3,16 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Update Character</title>
+    <title>Search Characters</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+      form {
+          padding-left: 25px;
+      }
+  </style>
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
@@ -33,10 +37,16 @@
             <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchCharacters">Search Characters</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addClass">Add Class</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchClasses">Search Classes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/addGuild">Add Guild</a>
@@ -45,92 +55,28 @@
             <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addSpell">Add Spell</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchSpells">Search Spells</a>
         </li>
       </ul>
     </div>
 </nav> 
 <br>
 
-<!-- Will be implemented later for filtering search results			
- <label>Select Guild to Search From: </label>
-
-<select name = "guildDropdown">
-  <option value = "Merchants" selected> Merchants</option>
-  <option value = "Fighters" selected> Fighters</option>
-  <option value = "Mages" selected> Mages</option>
-  <option value = "Assassins" selected> Assassins</option>
-  <option value = "Mercenaries" selected> Mercenaries</option>
-  <option disabled selected value>Select An Option</option>
-</select>
-
-<p></p>
-
-<label>Select Class to Search From:</label>
-
-<select name = "classDropDown">
-  <option value = "Rogue" selected>Rogue</option>
-  <option value = "Sorceress" selected>Sorceress</option>
-  <option value = "Ranger" selected>Ranger</option>
-  <option value = "Cleric" selected>Cleric</option>
-  <option value = "Druid" selected>Druids</option>
-  <option disabled selected value>Select An Option</option>
-</select>
-
-<p></p>
-
-<label>Select Spell to Search For: </label>
-<select name = "spellDropdown">
-  <option value = "Fireball" selected>Fireball</option>
-  <option value = "Cast Light" selected>Cast Light</option>
-  <option value = "Healing Touch" selected>Healing Touch</option>
-  <option value = "Frost Bolt" selected>Frost Bolt</option>
-  <option value = "Summon Familiar" selected>Summon Familiar</option>
-  <option value = "Detect Magic" selected>Detect Magic</option>
-  <option value = "Polymorph" selected>Polymorph</option>
-  <option value = "Magic Missile" selected>Magic Missle</option>
-  <option disabled selected value>Select An Option</option>
-</select> -->
-
-<p></p>
-
-<!-- <h1><center>Search Characters</center></h1>
-<form class="searchCharacters" method="post" action="/search" 
- style="margin:auto;max-width:600px">
-    <input type="text" placeholder="Search by first name to see all the data" name="characterSearch">
-    <button type="submit">Submit</button>
-    </button>
-</form>
-<p></p>
-<center>
-{% for item in data %}
-    <tr>
-        <td> {{item[0]}} by {{item[1]}}</td>
-        </br>
-    </tr>
-{% endfor %}
-</center>
-</fieldset> -->
-
 <form method="post" action="/search">
-   <input type="text" placeholder="Search by first name" name="f_name">
+   <input type="text" placeholder="Search by First Name" name="f_name">
    <input type="submit" value="Submit">
 </form>
 
 <p></p>
-<!--         <center>
-        {% for item in data %}
-            <tr>
-                <td> {{item[0]}} by {{item[1]}}</td>
-                </br>
-            </tr>
-        {% endfor %}
-        </center> -->
-
-
 
 </body>
 </html>

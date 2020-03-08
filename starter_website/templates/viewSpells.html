@@ -12,8 +12,8 @@
       form {
         padding-left: 25px;
       }
-      table {
-        margin: 25px;
+      th, td {
+        padding: 5px;
       }
     </style>
 </head>
@@ -40,10 +40,16 @@
             <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchCharacters">Search Characters</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addClass">Add Class</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchClasses">Search Classes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/addGuild">Add Guild</a>
@@ -52,58 +58,21 @@
             <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addSpell">Add Spell</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchSpells">Search Spells</a>
+        </li>
       </ul>
     </div>
-  </nav>  
+</nav> 
 <br>
-
-<!-- Format similar to the view Characters page, with an update button that will lead to the 
-corresponding update html page-->
-
-<!--
-<form method = "post">
-
-  <label>Modify Spell: </label>
-      <select name = "spellDropdown">
-          <option value = "Fireball" selected>Fireball</option>
-          <option value = "Cast Light" selected>Cast Light</option>
-          <option value = "Healing Touch" selected>Healing Touch</option>
-          <option value = "Frost Bolt" selected>Frost Bolt</option>
-          <option value = "Summon Familiar" selected>Summon Familiar</option>
-          <option value = "Detect Magic" selected>Detect Magic</option>
-          <option value = "Polymorph" selected>Polymorph</option>
-          <option value = "Magic Missile" selected>Magic Missle</option>
-          <option disabled selected value>Select An Option</option>
-      </select>
-
-  <input type="submit" value="Modify Spell">
-</form>
-
-<br>
-
-<form method = "post">
-      
-  <label>Delete Spell: </label>
-      <select name = "spellDropdown">
-          <option value = "Fireball" selected>Fireball</option>
-          <option value = "Cast Light" selected>Cast Light</option>
-          <option value = "Healing Touch" selected>Healing Touch</option>
-          <option value = "Frost Bolt" selected>Frost Bolt</option>
-          <option value = "Summon Familiar" selected>Summon Familiar</option>
-          <option value = "Detect Magic" selected>Detect Magic</option>
-          <option value = "Polymorph" selected>Polymorph</option>
-          <option value = "Magic Missile" selected>Magic Missle</option>
-          <option disabled selected value>Select An Option</option>
-      </select>
-
-  <input type="submit" value="Delete Spell">
-</form>
--->
 
 <form method = "get">
   <fieldset>
@@ -113,6 +82,8 @@ corresponding update html page-->
         <th>Spell Name</th>
         <th>Spell Description</th>
         <th>Spell Level</th>
+        <th>Update Spells</th>
+        <th>Delete Spells</th>
     </thead>
     <tbody>
       {% for r in rows %}

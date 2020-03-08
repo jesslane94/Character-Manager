@@ -3,15 +3,15 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Update Spell</title>
+    <title>Search Spells</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
-      form {
-          padding-left: 25px;
-      }
+        form {
+            padding-left: 25px;
+        }
     </style>
 </head>
 <body>
@@ -71,35 +71,12 @@
 </nav> 
 <br>
 
-<!-- Add form here for updated spell name, description, level -->
+<form method="post" action="/searchForSpells">
+   <input type="text" placeholder="Search by Spell Name" name="s_name">
+   <input type="submit" value="Submit">
+</form>
 
-<form method = "post" id= "updateSpells" action="/updateSpell/{{spell[0]}}">
-  <fieldset>
-
-<legend>Update Spell Here:</legend>
-<input type="hidden" name="spell_id" value="{{spell[0]}}">
-  <label> Spell Name:
-            <input type ="text" name ="spell_name" value="{{spell[1]}}" maxlength="2">
-        </label>
-
-  <br/><br/>
-
-  <label> Spell Level:
-            <input type ="number" name ="spell_level" value="{{spell[2]}}" maxlength="2">
-        </label>
-
-        <br/><br/>
-
-  <label>Spell Description:
-            <input type ="text" name ="spell_description" value="{{spell[3]}}" size="50" maxlength="255">
-        </label>
-
-  <br/><br/>
-
-    <input type="submit" value="Submit">
-    </fieldset>
-
-  <br/><br/>
+<p></p>
 
 </body>
 </html>

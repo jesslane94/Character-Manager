@@ -3,62 +3,81 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Update Character</title>
+    <title>Character Search Results</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+      form {
+        padding-left: 25px;
+      }
+      table {
+        margin: 25px;
+      }
+    </style>
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="/index">Character Manager</a>
-      
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/index">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/addCharacter">Add Character</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/addClass">Add Class</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/addGuild">Add Guild</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/addSpell">Add Spell</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
-            </li>
-          </ul>
-        </div>
-    </nav>  
-</br>
+    <!-- Brand -->
+    <a class="navbar-brand" href="/index">Character Manager</a>
+  
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/index">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addCharacter">Add Character</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchCharacters">Search Characters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/addClass">Add Class</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchClasses">Search Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/addGuild">Add Guild</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/addSpell">Add Spell</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchSpells">Search Spells</a>
+        </li>
+      </ul>
+    </div>
+</nav> 
+<br>
 
 <form method = "get" action = "/search">
 <fieldset>
   
-  <legend>Characters:</legend>
+  <legend>Search Results:</legend>
   <table border='1'>
     <thead>
         <th>First Name</th>
@@ -77,6 +96,8 @@
         <td> {{ r[3] }}</td>
         <td> {{ r[4] }}</td>
         <td> {{ r[5] }}</td>
+        <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateCharacter/{{r[6]}}'"> </td>
+        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteCharacter/{{r[6]}}'"> </td>
       {% endfor %}
     </tbody>
 </table>

@@ -37,10 +37,16 @@
             <a class="nav-link" href="/viewCharacters">View/Manage Characters</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchCharacters">Search Characters</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addClass">Add Class</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewClasses">View/Manage Classes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchClasses">Search Classes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/addGuild">Add Guild</a>
@@ -49,16 +55,21 @@
             <a class="nav-link" href="/viewGuilds">View/Manage Guilds</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/searchGuilds">Search Guilds</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/addSpell">Add Spell</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/viewSpells">View/Manage Spells</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/searchSpells">Search Spells</a>
+        </li>
       </ul>
     </div>
 </nav> 
 
-<!-- will this pic ever work LOL -->
 <img src="{{ url_for('static', filename='indexBackground.jpg') }}" class = "img-fluid" />
 <br><br>
 
@@ -66,14 +77,13 @@
 <ul class = "text-white">
   <li>'Add' Page for each entity. The user can add a new character/spell/class/guild to the database.</li>
   <li>'View' Page for each entity's current entries. This page will also have a button to lead you to a page where you can update the corresponding entity.</li>
-  <li>'Search' function for characters.</li>
+  <li>'Search' function for each entity by name.</li>
   <li>'Update/Delete' functions for all entities.</li>
 </ul>
 
 <p class = "text-white text-center"><i>What Will Be Implemented</i></p> 
 <ul class = "text-white">
-  <li>Search Function for each view page.</li>
-  <li>Connect all the many to many relationships.</li>
+  <li>Connect all the many to many relationships. (classes and spells, characters and spells)</li>
 </ul>
 
 </body>
