@@ -62,6 +62,7 @@ CREATE TABLE classes_spells (
         ON UPDATE CASCADE 
 );
 
+/*Unsure if this will be implemented 
 CREATE TABLE characters_spells (
     char_id INT(11) NOT NULL,
     spell_id INT(11) NOT NULL,
@@ -71,4 +72,4 @@ CREATE TABLE characters_spells (
     FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE 
-);
+);*/
