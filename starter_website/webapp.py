@@ -3,6 +3,8 @@ from db_connector.db_connector import connect_to_database, execute_query
 
 #create the web application
 webapp = Flask(__name__)
+
+#Secret Key is used for flash.  It may or may not be implemented 
 webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #provide a route where requests on the web application can be addressed
@@ -15,9 +17,9 @@ def index():
 @webapp.route('/viewCharacters')
 def viewCharacters():
     db_connection = connect_to_database()
-    # query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters"
+ 
     query = "SELECT characters.first_name, characters.last_name, characters.strength, characters.dexterity, characters.endurance, characters.intelligence, guilds.guild_name, classes.class_name, characters.char_id FROM characters LEFT JOIN guilds ON characters.guild_id = guilds.guild_id LEFT JOIN classes ON characters.class_id = classes.class_id"
-    result = execute_query(db_connection, query).fetchall();
+    result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('viewCharacters.html', rows=result)
 
@@ -30,29 +32,43 @@ def updateCharacter(id):
         character_query = 'SELECT char_id, first_name, last_name, strength, dexterity, endurance, intelligence FROM characters WHERE char_id = %s' % (id)
         character_result = execute_query(db_connection, character_query).fetchone()
 
+        guild_query = 'SELECT guild_id, guild_name FROM guilds'
+        guild_result = execute_query(db_connection, guild_query).fetchall()
+
+        class_query = 'SELECT class_id, class_name FROM classes'
+        class_result = execute_query(db_connection, class_query).fetchall()
+
+        spell_query = 'SELECT spell_id, spell_name FROM spells'
+        spell_result = execute_query(db_connection, spell_query).fetchall()
+
         if character_result == None:
             return render_template('notFound.html')
 
-        return render_template('updateCharacter.html', character = character_result)
+        return render_template('updateCharacter.html', character = character_result, guilds = guild_result, classes = class_result, spells = spell_result)
         
     elif request.method == 'POST':
-        print("Update characters!");
-        char_id = request.form['char_id']
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
+        print("Update characters!")
+        charID = request.form['char_id']
+        firstName = request.form['first_name']
+        lastName = request.form['last_name']
         strength = request.form['strength']
         dexterity = request.form['dexterity']
         endurance = request.form['endurance']
         intelligence = request.form['intelligence']
-        # add guild
-        # add class
-        # add spells, populate from class type
+        guildID = request.form['guilds']
+        classID = request.form['classes']
+        spellID = request.form['spells']
+        
+        print(request.form)
 
-        print(request.form);
+        characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
+        characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
 
-        query = "UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s  WHERE char_id = %s"
-        data = (first_name, last_name, strength, dexterity, endurance, intelligence, char_id)
-        result = execute_query(db_connection, query, data)
+        spellQuery = 'INSERT INTO characters_spells (char_id, spell_id) VALUES (%s, %s)'
+        spellData = (charID, spellID)
+
+        execute_query(db_connection, characterQuery, characterData)
+        execute_query(db_connection, spellQuery, spellData)
 
         return redirect('/viewCharacters')
 
@@ -62,23 +78,16 @@ def addNewCharacter():
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-        guild_query = 'SELECT guild_id, guild_name FROM guilds'
-        guild_result = execute_query(db_connection, guild_query).fetchall();
 
-        print(guild_result)
+        guild_query = 'SELECT guild_id, guild_name FROM guilds'
+        guild_result = execute_query(db_connection, guild_query).fetchall()
 
         class_query = 'SELECT class_id, class_name FROM classes'
-        class_result = execute_query(db_connection, class_query).fetchall(); 
-
-        """ populate spell options based on class
-        spell_query = 'SELECT spell_id, spell_name FROM spells'
-        spell_result = execute_query(db_connection, guild_query).fetchall();
-        """ 
+        class_result = execute_query(db_connection, class_query).fetchall()
 
         return render_template('addNewCharacter.html', guilds = guild_result, classes = class_result)
 
     elif request.method == 'POST':
-        print ("Add new people!");
         
         firstName = request.form.get('firstName', False)
         lastName = request.form.get('lastName', False)
@@ -88,9 +97,9 @@ def addNewCharacter():
         intelligence = request.form.get('intelligence', False)
         guildID = request.form.get('guilds', False)
         classID = request.form.get('classes', False)
-        # add spells?
-
+           
         query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, guild_id, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+        
         data = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID)
         execute_query(db_connection, query, data)
 
@@ -128,7 +137,7 @@ def search():
 def viewClasses():
     db_connection = connect_to_database()
     query = "SELECT class_name, stat_bonus_name, stat_bonus, class_id FROM classes"
-    result = execute_query(db_connection, query).fetchall();
+    result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('viewClasses.html', rows=result)
 
@@ -141,7 +150,7 @@ def addClass():
 
     if request.method == 'GET':
         query = 'SELECT class_name, stat_bonus, stat_bonus_name FROM classes'
-        result = execute_query(db_connection, query).fetchall();
+        result = execute_query(db_connection, query).fetchall()
         print (result)
 
         return render_template('addClass.html')
@@ -182,8 +191,6 @@ def updateClass(id):
         class_name = request.form['class_name']
         stat_bonus = request.form['stat_bonus']
         stat_bonus_name = request.form['stat_bonus_name']
-      
-        print(request.form);
 
         query = "UPDATE classes SET class_name = %s, stat_bonus= %s, stat_bonus_name = %s WHERE class_id = %s"
         data = (class_name, stat_bonus, stat_bonus_name, class_id)
@@ -287,7 +294,6 @@ def updateGuild(id):
         query = "UPDATE guilds SET guild_name= %s, guild_description = %s WHERE guild_id = %s"
         data = (guild_name, guild_description, guild_id)
         result = execute_query(db_connection, query, data)
-        # print(str(result.rowcount) + " row(s) updated!");
 
         return redirect('/viewGuilds')
         
