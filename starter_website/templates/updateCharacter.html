@@ -10,7 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
         form {
+
             padding-left: 25px;
+            border: solid;
+            margin: 25px;
+            width: 750px;
         }
     </style>
 </head>
@@ -130,18 +134,58 @@
                 </select><br>
             <p></p>
             
-            <label>Select Spell: </label>
+ <!--            <label>Select Spell to Add: </label>
+            <select name="spells" value ="{{character[9]}}">
+                <!-- display all spells inside this dropdown 
+                    {% for s in spells %}
+                      <option value="{{ s[0] }}">{{ s[1] }}</option>
+                    {% endfor %}
+                </select><br> 
+            <p></p>		
+            
+            <label>Select Spell to Remove: </label>
+            <select name="removeSpell" value ="{{character[10]}}">
+                <!-- display all spells inside this dropdown 
+                    {% for rs in removeSpell %}
+                      <option value="{{ rs[0] }}">{{ rs[1] }}</option>
+                    {% endfor %}
+                </select><br> 
+            <p></p>	-->
+        <input type="hidden" name="buttonID" value="characterUpdateButton">
+        <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+
+    <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
+        <fieldset>   
+            <legend>Select Spell to Add to Character: </legend>
+        
             <select name="spells" value ="{{character[9]}}">
                 <!-- display all spells inside this dropdown -->
                     {% for s in spells %}
                       <option value="{{ s[0] }}">{{ s[1] }}</option>
                     {% endfor %}
-                </select><br> 
-			<p></p>		
-
-        <input type="submit" value="Submit">
+                </select>
+            <input type="hidden" name="buttonID" value="spellAddButton">
+            <input type="submit" value="Submit">
         </fieldset>
-	</form>
+    </form>
+
+    <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
+        <fieldset>
+            <legend>Select Spell to Remove from Character: </legend>>
+                <select name="removeSpell" value ="{{character[10]}}">
+        
+                <!-- display all spells inside this dropdown -->
+                    {% for rs in removeSpell %}
+                    <option value="{{ rs[0] }}">{{ rs[1] }}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="hidden" name="buttonID" value="spellRemoveButton">
+                <input type="submit" value="Submit">
+        </fieldset>
+    </form>
 	<br>
 </body>
 </html>
