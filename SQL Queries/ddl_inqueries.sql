@@ -59,7 +59,8 @@ CREATE TABLE classes_spells (
         ON UPDATE CASCADE,
     FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
         ON DELETE CASCADE
-        ON UPDATE CASCADE 
+        ON UPDATE CASCADE,
+    CONSTRAINT AK_Character_Spells UNIQUE (char_id, spell_id)
 );
 
 /*Unsure if this will be implemented 

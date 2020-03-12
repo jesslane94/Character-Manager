@@ -1,16 +1,3 @@
-/*
-drop statements to clear out old records if they exist
-*/
-
-DROP TABLE IF EXISTS characters;
-DROP TABLE IF EXISTS guilds;
-DROP TABLE IF EXISTS spells;
-DROP TABLE IF EXISTS classes;
-DROP TABLE IF EXISTS classes_spells;
-DROP TABLE IF EXISTS characters_spells;
-
-/* Create Tables */
-
 CREATE TABLE guilds (
    guild_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    guild_name VARCHAR(255) NOT NULL,
@@ -35,9 +22,11 @@ CREATE TABLE characters (
     guild_id INT(11) NULL,
     class_id INT(11) NULL,
     FOREIGN KEY(guild_id) REFERENCES guilds(guild_id)
-        ON DELETE SET NULL,
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
     FOREIGN KEY(class_id) REFERENCES classes(class_id)
         ON DELETE SET NULL
+        ON UPDATE CASCADE       
 );
 
 CREATE TABLE spells (
@@ -47,24 +36,15 @@ CREATE TABLE spells (
     spell_description VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE classes_spells (
-    class_id INT(11) NOT NULL,
-    spell_id INT(11) NOT NULL,
-    FOREIGN KEY(class_id) REFERENCES classes(class_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE,
-    FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE 
-);
-
 CREATE TABLE characters_spells (
     char_id INT(11) NOT NULL,
     spell_id INT(11) NOT NULL,
     FOREIGN KEY(char_id) REFERENCES characters(char_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE 
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT characters_spells UNIQUE (char_id, spell_id)
 );
+

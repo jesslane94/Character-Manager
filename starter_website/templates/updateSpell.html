@@ -79,13 +79,13 @@
 <legend>Update Spell Here:</legend>
 <input type="hidden" name="spell_id" value="{{spell[0]}}">
   <label> Spell Name:
-            <input type ="text" name ="spell_name" value="{{spell[1]}}" maxlength="2">
+            <input type ="text" name ="spell_name" value="{{spell[1]}}" maxlength="255">
         </label>
 
   <br/><br/>
 
   <label> Spell Level:
-            <input type ="number" name ="spell_level" value="{{spell[2]}}" maxlength="2">
+            <input type ="number" name ="spell_level" value="{{spell[2]}}" min="0" max="20">
         </label>
 
         <br/><br/>

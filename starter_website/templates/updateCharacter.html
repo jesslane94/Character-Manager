@@ -93,25 +93,25 @@
             <br/><br/>
 			
 			<label>Strength:
-                <input type ="number" name ="strength" value="{{character[3]}}" size="1" maxlength="2">
+                <input type ="number" name ="strength" value="{{character[3]}}" min="0" max="20">
             </label>
 			
 			<br/><br/>
 
 			<label>Dexterity:
-                <input type ="number" name ="dexterity" value="{{character[4]}}" size="1" maxlength="2">
+                <input type ="number" name ="dexterity" value="{{character[4]}}" min="0" max="20">
             </label>
 			
 			<br/><br/>
 
 			<label>Endurance:
-                <input type ="number" name ="endurance" value="{{character[5]}}" size="1" maxlength="2">
+                <input type ="number" name ="endurance" value="{{character[5]}}" min="0" max="20">
             </label>
 			
 			<br/><br/>
 
 			<label>Intelligence:
-                <input type ="number" name ="intelligence" value="{{character[6]}}"size="1" maxlength="2">
+                <input type ="number" name ="intelligence" value="{{character[6]}}" min="0" max="20">
             </label>
 			
 			<br/><br/>
@@ -173,7 +173,7 @@
 
     <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>
-            <legend>Select Spell to Remove from Character: </legend>>
+            <legend>Select Spell to Remove from Character: </legend>
                 <select name="removeSpell" value ="{{character[10]}}">
         
                 <!-- display all spells inside this dropdown -->
