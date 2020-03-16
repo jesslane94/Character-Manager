@@ -157,8 +157,9 @@ def search():
 
     if request.method == 'POST':
         firstName = request.form.get('f_name', False)
-        print(firstName)
-        query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name LIKE '%%%s%%'" % (firstName)
+        searchString = ("'%" + searchString + "%'")
+        # print(firstName)
+        query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name LIKE" + searchString
         result = execute_query(db_connection, query).fetchall()
         print(result)
         if len(result) == 0:
