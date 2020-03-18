@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS classes_spells;
 DROP TABLE IF EXISTS characters_spells;
 
 /* Create Tables */
-
 /* Create Character Table */
 CREATE TABLE characters (
     char_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

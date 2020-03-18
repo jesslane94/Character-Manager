@@ -134,56 +134,38 @@
                 </select><br>
             <p></p>
             
- <!--            <label>Select Spell to Add: </label>
-            <select name="spells" value ="{{character[9]}}">
-                <!-- display all spells inside this dropdown 
-                    {% for s in spells %}
-                      <option value="{{ s[0] }}">{{ s[1] }}</option>
-                    {% endfor %}
-                </select><br> 
-            <p></p>		
-            
-            <label>Select Spell to Remove: </label>
-            <select name="removeSpell" value ="{{character[10]}}">
-                <!-- display all spells inside this dropdown 
-                    {% for rs in removeSpell %}
-                      <option value="{{ rs[0] }}">{{ rs[1] }}</option>
-                    {% endfor %}
-                </select><br> 
-            <p></p>	-->
-        <input type="hidden" name="buttonID" value="characterUpdateButton">
-        <input type="submit" value="Submit">
+        <input type="submit"  name="buttonID" value="Update Character">
         </fieldset>
     </form>
 
     <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>   
             <legend>Select Spell to Add to Character: </legend>
-        
-            <select name="spells" value ="{{character[9]}}">
+                <input type="hidden" name="char_id" value="{{character[0]}}">
+                <select name="spells" value ="{{character[9]}}">
                 <!-- display all spells inside this dropdown -->
                     {% for s in spells %}
                       <option value="{{ s[0] }}">{{ s[1] }}</option>
                     {% endfor %}
                 </select>
-            <input type="hidden" name="buttonID" value="spellAddButton">
-            <input type="submit" value="Submit">
+            <input type="submit" name="buttonID" value="Add Spell">
+
         </fieldset>
     </form>
 
     <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>
             <legend>Select Spell to Remove from Character: </legend>
+            <input type="hidden" name="char_id" value="{{character[0]}}">
                 <select name="removeSpell" value ="{{character[10]}}">
-        
                 <!-- display all spells inside this dropdown -->
                     {% for rs in removeSpell %}
                     <option value="{{ rs[0] }}">{{ rs[1] }}</option>
                     {% endfor %}
                 </select>
 
-                <input type="hidden" name="buttonID" value="spellRemoveButton">
-                <input type="submit" value="Submit">
+            <input type="submit"  name="buttonID" value="Remove Spell">
+
         </fieldset>
     </form>
 	<br>

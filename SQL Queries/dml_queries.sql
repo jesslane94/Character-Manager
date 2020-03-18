@@ -30,7 +30,7 @@ WHERE class_id = :class_id_input;
 
 /*UPDATE VALUES FROM TABLES */
 UPDATE characters
-SET first_name = :first_name_input, last_name = :lastname_input, strength = :str_input, dexterity = :dex_input, endurance = :end_input, intelligence =  :int_input)
+SET first_name = :first_name_input, last_name = :lastname_input, strength = :str_input, dexterity = :dex_input, endurance = :end_input, intelligence =  :int_input
 WHERE char_id = :char_id_input;
 
 UPDATE spells

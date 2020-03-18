@@ -52,57 +52,42 @@ def updateCharacter(id):
         return render_template('updateCharacter.html', character = character_result, guilds = guild_result, classes = class_result, spells = spell_result, removeSpell = remove_spell_result)
         
     elif request.method == 'POST':
-        print("Update characters!")
-        charID = request.form['char_id']
-        firstName = request.form['first_name']
-        lastName = request.form['last_name']
-        strength = request.form['strength']
-        dexterity = request.form['dexterity']
-        endurance = request.form['endurance']
-        intelligence = request.form['intelligence']
-        guildID = request.form['guilds']
-        classID = request.form['classes']
-        spellID = request.form['spells']
-        removeSpellID = request.form['removeSpell']
         
-        """        print(request.form)
-
-        characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
-        characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
-
-        spellQuery = 'IF NOT EXISTS INSERT INTO characters_spells (char_id, spell_id) VALUES (%s, %s)'
-        spellData = (charID, spellID)
-
-        removeSpellQuery = 'DELETE FROM characters_spells WHERE char_id = %s AND spell_id = %s'
-        removeSpellData = (charID, removeSpellID)
-        
-        execute_query(db_connection, characterQuery, characterData)
-        execute_query(db_connection, spellQuery, spellData)
-        execute_query(db_connection, removeSpellQuery, removeSpellData) """
-
-        if request.form['buttonID'] == 'characterUpdateButton':
+        if request.form['buttonID'] == 'Update Character':
             print('Character Update Submit Called!')
+            print("Update characters!")
+            charID = request.form['char_id']
+            firstName = request.form['first_name']
+            lastName = request.form['last_name']
+            strength = request.form['strength']
+            dexterity = request.form['dexterity']
+            endurance = request.form['endurance']
+            intelligence = request.form['intelligence']
+            guildID = request.form['guilds']
+            classID = request.form['classes']
             characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
             characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
             execute_query(db_connection, characterQuery, characterData)
             return redirect('/viewCharacters')
 
-        elif request.form['buttonID'] == 'spellAddButton': 
+        elif request.form['buttonID'] == 'Add Spell': 
             print('spellAddSubmit Called')
-            spellQuery = 'IF NOT EXISTS INSERT INTO characters_spells (char_id, spell_id) VALUES (%s, %s)'
-            spellData = (charID, spellID)
+            charID = request.form['char_id']
+            spellID = request.form['spells']
+            spellQuery = 'INSERT INTO characters_spells (char_id, spell_id) VALUES (%s, %s) ON DUPLICATE KEY UPDATE char_id = %s, spell_id = %s'
+            spellData = (charID, spellID, charID, spellID)
             execute_query(db_connection, spellQuery, spellData)
             return redirect('/viewCharacters')
         
-        elif request.form['buttonID'] == 'spellRemoveButton': 
+        elif request.form['buttonID'] == 'Remove Spell': 
             print('spellRemoveSubmit Called')
+            charID = request.form['char_id']
+            removeSpellID = request.form['removeSpell']
             removeSpellQuery = 'DELETE FROM characters_spells WHERE char_id = %s AND spell_id = %s'
             removeSpellData = (charID, removeSpellID)
             execute_query(db_connection, removeSpellQuery, removeSpellData)
             return redirect('/viewCharacters')
 
-
-        
 
 @webapp.route('/addCharacter', methods=['POST','GET'])
 def addNewCharacter():
@@ -157,9 +142,8 @@ def search():
 
     if request.method == 'POST':
         firstName = request.form.get('f_name', False)
-        searchString = ("'%" + searchString + "%'")
-        # print(firstName)
-        query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name LIKE" + searchString
+        print(firstName)
+        query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name = '%s'" % (firstName)
         result = execute_query(db_connection, query).fetchall()
         print(result)
         if len(result) == 0:
