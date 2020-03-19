@@ -73,30 +73,27 @@
 
 <!-- Add form here for updated class name, description, bonus -->
 <form method = "post" id= "updateClass" action="/updateClass/{{classes[0]}}">
-  <fieldset>
+<fieldset>
 
 <legend>Update Class Here:</legend>
+
 <input type="hidden" name="class_id" value="{{classes[0]}}">
-  <label> Class Name:
-            <input type ="text" name ="class_name" value="{{classes[1]}}" maxlength="255">
-        </label>
+
+  <label> Class Name: <input type ="text" name ="class_name" value="{{classes[1]}}" maxlength="255"></label>
 
   <br/><br/>
 
-  <label> Stat Bonus:
-            <input type ="number" name ="stat_bonus" value="{{classes[2]}}" min="0" max="20">
-        </label>
+  <label> Stat Bonus: <input type ="number" name ="stat_bonus" value="{{classes[2]}}" min="0" max="20"></label>
 
-        <br/><br/>
+  <br/><br/>    
 
-  <label>Stat Bonus Name:
-            <input type ="text" name ="stat_bonus_name" value="{{classes[3]}}" maxlength="255">
-        </label>
+  <label>Stat Bonus Name:<input type ="text" name ="stat_bonus_name" value="{{classes[3]}}" maxlength="255"></label>
 
   <br/><br/>
 
-      <input type="submit" value="Submit">
-      </fieldset>
+   <input type="submit" value="Submit">
+   
+   </fieldset>
 
   <br/><br/>
 

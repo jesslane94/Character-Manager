@@ -8,11 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <style>
-        form {
-            padding-left: 25px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
@@ -71,63 +67,58 @@
     </nav> 
 <br>
 
-	<form id="addCharacter" action ="/addCharacter" method = "post">
+    <form id="addCharacter" action ="/addCharacter" method = "post">
+
+        <legend>Add Character:</legend>
+
         <fieldset>
-			
-			<legend>Add Character Here:</legend>
-			
-			<label> First Name:
-                <input type ="text" name ="firstName" maxlength="255">
-            </label>
-			
-			<br/><br/>
+			    
+			<label> First Name:  <input type ="text" name ="firstName" maxlength="255"></label>
+            
+			<br><br>
 
-			<label> Last Name:
-                <input type ="text" name ="lastName" maxlength="255">
-            </label>
-
-            <br/><br/>
+			<label> Last Name: <input type ="text" name ="lastName" maxlength="255" >
+            
+            <br><br>
 			
-			<label>Strength:
-                <input type ="number" name ="strength" size="1" min="0" max="20">
-            </label>
-			
-			<br/><br/>
+			<label>>Strength:  <input type ="number" name ="strength" size="1" min="1" max="20" ></label>
+            
+			<br><br>
 
-			<label>Dexterity:
-                <input type ="number" name ="dexterity" size="1" min="0" max="20">
-            </label>
-			
-			<br/><br/>
+			<label>Dexterity: <input type ="number" name ="dexterity" size="1" min="1" max="20"></label>
+            
+			<br><br>
 
-			<label>Endurance
-                <input type ="number" name ="endurance" size="1" min="0" max="20">
-            </label>
+			<label>Endurance <input type ="number" name ="endurance" size="1" min="1" max="20"></label>
+            
 			
-			<br/><br/>
+			<br><br>
 
-			<label>Intelligence:
-                <input type ="number" name ="intelligence" size="1" min="0" max="20">
-            </label>
+			<label>Intelligence: <input type ="number" name ="intelligence" size="1" min="1" max="20"></label>
 
-            <p></p>
+            <br><br>
 			
-			<label>Select Guild: </label>
+            <label>Select Guild: </label>
+            
                 <select name= "guilds">
-                    <!-- display all guilds inside this dropdown -->
+
+                   
                         {% for g in guilds %}
                           <option value="{{ g[0] }}" > {{ g[1] }}</option>
                         {% endfor %}
+
+                        <option value="noGuild"> No Guild </option>
                     </select><br>
-			<p></p>
+            
+            <br><br>
 
             <label>Select Class: </label>
             <select name="classes">
-                <!-- display all classes inside this dropdown -->
+                
                     {% for c in classes %}
                       <option value="{{ c[0] }}">{{ c[1] }}</option>
                     {% endfor %}
-                </select><br>
+                </select>
             <p></p>
 
 			<input type="submit" value="Add Character">

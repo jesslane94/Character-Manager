@@ -22,8 +22,7 @@ CREATE TABLE characters (
     guild_id INT(11) NULL,
     class_id INT(11) NULL,
     FOREIGN KEY(guild_id) REFERENCES guilds(guild_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE,
+        ON DELETE SET NULL,
     FOREIGN KEY(class_id) REFERENCES classes(class_id)
         ON DELETE SET NULL
         ON UPDATE CASCADE       

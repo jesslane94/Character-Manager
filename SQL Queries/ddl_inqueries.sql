@@ -62,14 +62,3 @@ CREATE TABLE classes_spells (
     CONSTRAINT AK_Character_Spells UNIQUE (char_id, spell_id)
 );
 
-/*Unsure if this will be implemented 
-CREATE TABLE characters_spells (
-    char_id INT(11) NOT NULL,
-    spell_id INT(11) NOT NULL,
-    FOREIGN KEY(char_id) REFERENCES characters(char_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY(spell_id) REFERENCES spells(spell_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE 
-);*/

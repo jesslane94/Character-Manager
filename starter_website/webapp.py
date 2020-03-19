@@ -4,9 +4,6 @@ from db_connector.db_connector import connect_to_database, execute_query
 #create the web application
 webapp = Flask(__name__)
 
-#Secret Key is used for flash.  It may or may not be implemented 
-webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
 #provide a route where requests on the web application can be addressed
 @webapp.route('/')
 @webapp.route('/index')
@@ -44,7 +41,6 @@ def updateCharacter(id):
 
         remove_spell_query = 'SELECT spells.spell_id, spells.spell_name FROM spells INNER JOIN characters_spells ON spells.spell_id = characters_spells.spell_id INNER JOIN characters ON characters_spells.char_id = characters.char_id WHERE characters.char_id = %s ORDER BY spells.spell_id' % (id)
         remove_spell_result = execute_query(db_connection, remove_spell_query).fetchall()
-        print (remove_spell_result)
 
         if character_result == None:
             return render_template('notFound.html')
@@ -54,8 +50,7 @@ def updateCharacter(id):
     elif request.method == 'POST':
         
         if request.form['buttonID'] == 'Update Character':
-            print('Character Update Submit Called!')
-            print("Update characters!")
+        
             charID = request.form['char_id']
             firstName = request.form['first_name']
             lastName = request.form['last_name']
@@ -65,9 +60,22 @@ def updateCharacter(id):
             intelligence = request.form['intelligence']
             guildID = request.form['guilds']
             classID = request.form['classes']
+
+            #If character has no guild
+            if (guildID == 'noGuild'):
+                
+                #characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
+                characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, None, classID, charID)
+            
+            #If character does want to be inserted into a guild 
+            else:
+                
+                #characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
+                characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
+            
             characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
-            characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
             execute_query(db_connection, characterQuery, characterData)
+            
             return redirect('/viewCharacters')
 
         elif request.form['buttonID'] == 'Add Spell': 
@@ -114,10 +122,15 @@ def addNewCharacter():
         intelligence = request.form.get('intelligence', False)
         guildID = request.form.get('guilds', False)
         classID = request.form.get('classes', False)
-           
-        query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, guild_id, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
-        
-        data = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID)
+
+        if (guildID == 'noGuild'):
+            query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+            data = (firstName, lastName, strength, dexterity, endurance, intelligence, classID)
+
+        else:
+            query = 'INSERT INTO characters (first_name, last_name, strength, dexterity, endurance, intelligence, guild_id, class_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+            data = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID)
+
         execute_query(db_connection, query, data)
 
         return redirect('/viewCharacters')
@@ -176,7 +189,6 @@ def addClass():
 
         className = request.form.get('className', False)
         bonusStat = request.form.get('bonusStat', False)
-        #should we have the names populate from the base character stats? or allow users to add their own stat types?
         statBonusName = request.form.get('statBonusName', False)
 
         query = 'INSERT INTO classes (class_name, stat_bonus, stat_bonus_name) VALUES (%s, %s, %s)'

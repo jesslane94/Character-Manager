@@ -8,15 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <style>
-        form {
 
-            padding-left: 25px;
-            border: solid;
-            margin: 25px;
-            width: 750px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-dark">
@@ -75,80 +68,116 @@
     </nav> 
 <br>
 
-	<form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
+	<form  method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>
+		<div class = "container">
+            <legend>Update Character Here:</legend>
+
+            <input type="hidden" name="char_id" value="{{character[0]}}">
+			<label>First Name:  <input type ="text" name ="first_name" value="{{character[1]}}" maxlength="255"></label>
+            
+			<br><br>
+
+			<label>Last Name:   <input type ="text" name ="last_name" value="{{character[2]}}" maxlength="255"></label>
+            
+            <br><br>
 			
-			<legend>Update Character Here:</legend>
-			<input type="hidden" name="char_id" value="{{character[0]}}">
+			<label>Strength:    <input type ="number" name ="strength" value="{{character[3]}}" min="1" max="20"></label>
+			
+			<br><br>
+
+			<label>Dexterity:   <input type ="number" name ="dexterity" value="{{character[4]}}" min="1" max="20"></label>
+    
+			<br><br>
+
+		    <label>Endurance:   <input type ="number" name ="endurance" value="{{character[5]}}" min="1" max="20"></label>
+            
+			<br><br>
+
+	        <label>Intelligence: <input type ="number" name ="intelligence" value="{{character[6]}}" min="1" max="20"></label>
+      
+			<br><br>
+            
+			<!-- <input type="hidden" name="char_id" value="{{character[0]}}">
 			<label> First Name:
                 <input type ="text" name ="first_name" value="{{character[1]}}" maxlength="255">
             </label>
 			
-			<br/><br/>
+			<br>
 
 			<label> Last Name:
                 <input type ="text" name ="last_name" value="{{character[2]}}" maxlength="255">
             </label>
 
-            <br/><br/>
+            <br>
 			
-			<label>Strength:
-                <input type ="number" name ="strength" value="{{character[3]}}" min="0" max="20">
-            </label>
+			Strength: <input type ="number" name ="strength" value="{{character[3]}}" min="0" max="20">
 			
-			<br/><br/>
+			<br>
 
 			<label>Dexterity:
                 <input type ="number" name ="dexterity" value="{{character[4]}}" min="0" max="20">
             </label>
 			
-			<br/><br/>
+			<br>
 
 			<label>Endurance:
                 <input type ="number" name ="endurance" value="{{character[5]}}" min="0" max="20">
             </label>
 			
-			<br/><br/>
+			<br>
 
 			<label>Intelligence:
                 <input type ="number" name ="intelligence" value="{{character[6]}}" min="0" max="20">
             </label>
 			
-			<br/><br/>
+			<br> -->
             
             <label>Select Guild: </label>
                 <select name= "guilds" value ="{{character[7]}}">
-                    <!-- display all guilds inside this dropdown -->
+
+                         <!-- display all guilds inside this dropdown -->
                         {% for g in guilds %}
                           <option value="{{ g[0] }}" > {{ g[1] }}</option>
                         {% endfor %}
+                        <option value="noGuild"> No Guild </option>
+
                     </select><br>
 			<p></p>
 
             <label>Select Class: </label>
+
             <select name="classes"  value ="{{character[8]}}">
-                <!-- display all classes inside this dropdown -->
+
+                     <!-- display all classes inside this dropdown -->
                     {% for c in classes %}
                       <option value="{{ c[0] }}">{{ c[1] }}</option>
                     {% endfor %}
-                </select><br>
+            </select><br>
+
             <p></p>
             
         <input type="submit"  name="buttonID" value="Update Character">
+        </div>	
         </fieldset>
     </form>
 
     <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
+
         <fieldset>   
             <legend>Select Spell to Add to Character: </legend>
+
                 <input type="hidden" name="char_id" value="{{character[0]}}">
-                <select name="spells" value ="{{character[9]}}">
-                <!-- display all spells inside this dropdown -->
-                    {% for s in spells %}
-                      <option value="{{ s[0] }}">{{ s[1] }}</option>
-                    {% endfor %}
-                </select>
-            <input type="submit" name="buttonID" value="Add Spell">
+                
+                    <select name="spells" value ="{{character[9]}}">
+
+                        <!-- display all spells inside this dropdown -->
+                        {% for s in spells %}
+                        <option value="{{ s[0] }}">{{ s[1] }}</option>
+                        {% endfor %}
+                    
+                    </select>
+                 <input type="submit" name="buttonID" value="Add Spell">
 
         </fieldset>
     </form>
@@ -156,9 +185,11 @@
     <form method = "post" id= "update_character" action="/updateCharacter/{{character[0]}}">
         <fieldset>
             <legend>Select Spell to Remove from Character: </legend>
+
             <input type="hidden" name="char_id" value="{{character[0]}}">
+
                 <select name="removeSpell" value ="{{character[10]}}">
-                <!-- display all spells inside this dropdown -->
+                    <!-- display all spells inside this dropdown -->
                     {% for rs in removeSpell %}
                     <option value="{{ rs[0] }}">{{ rs[1] }}</option>
                     {% endfor %}

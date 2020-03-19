@@ -71,35 +71,31 @@
 </nav> 
 <br>
 
-<!-- Add form here for updated spell name, description, level -->
 
 <form method = "post" id= "updateSpells" action="/updateSpell/{{spell[0]}}">
-  <fieldset>
+<fieldset>
 
-<legend>Update Spell Here:</legend>
-<input type="hidden" name="spell_id" value="{{spell[0]}}">
-  <label> Spell Name:
-            <input type ="text" name ="spell_name" value="{{spell[1]}}" maxlength="255">
-        </label>
+  <legend>Update Spell Here:</legend>
 
-  <br/><br/>
+  <input type="hidden" name="spell_id" value="{{spell[0]}}">
 
-  <label> Spell Level:
-            <input type ="number" name ="spell_level" value="{{spell[2]}}" min="0" max="20">
-        </label>
-
-        <br/><br/>
-
-  <label>Spell Description:
-            <input type ="text" name ="spell_description" value="{{spell[3]}}" size="50" maxlength="255">
-        </label>
+  <label> Spell Name:<input type ="text" name ="spell_name" value="{{spell[1]}}" maxlength="255"> </label>
 
   <br/><br/>
 
-    <input type="submit" value="Submit">
-    </fieldset>
+  <label> Spell Level: <input type ="number" name ="spell_level" value="{{spell[2]}}" min="0" max="20"> </label>
 
   <br/><br/>
+
+  <label>Spell Description: <input type ="text" name ="spell_description" value="{{spell[3]}}" size="50" maxlength="255"></label>
+
+  <br/><br/>
+
+  <input type="submit" value="Submit">
+
+</fieldset>
+
+<br/><br/>
 
 </body>
 </html>
