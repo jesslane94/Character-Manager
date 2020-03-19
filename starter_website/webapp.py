@@ -1,30 +1,30 @@
 from flask import Flask, render_template, request, redirect, flash
 from db_connector.db_connector import connect_to_database, execute_query
 
-#create the web application
+#Create the web application
 webapp = Flask(__name__)
 
-#provide a route where requests on the web application can be addressed
+#Provide a route where requests on the web application can be addressed
 @webapp.route('/')
 @webapp.route('/index')
-#provide a view (fancy name for a function) which responds to any requests on this route
+
 def index():
     return render_template('index.html')
 
 @webapp.route('/viewCharacters')
 def viewCharacters():
+
     db_connection = connect_to_database()
  
     query = "SELECT characters.first_name, characters.last_name, characters.strength, characters.dexterity, characters.endurance, characters.intelligence, guilds.guild_name, classes.class_name, characters.char_id FROM characters LEFT JOIN guilds ON characters.guild_id = guilds.guild_id LEFT JOIN classes ON characters.class_id = classes.class_id"
     result = execute_query(db_connection, query).fetchall()
-    print(result)
+
     return render_template('viewCharacters.html', rows=result)
 
 @webapp.route('/updateCharacter/<int:id>', methods=['POST','GET'])
 def updateCharacter(id):
     db_connection = connect_to_database()
     
-    #display existing data
     if request.method == 'GET':
 
         character_query = 'SELECT char_id, first_name, last_name, strength, dexterity, endurance, intelligence FROM characters WHERE char_id = %s' % (id)
@@ -63,14 +63,10 @@ def updateCharacter(id):
 
             #If character has no guild
             if (guildID == 'noGuild'):
-                
-                #characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
                 characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, None, classID, charID)
             
             #If character does want to be inserted into a guild 
             else:
-                
-                #characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
                 characterData = (firstName, lastName, strength, dexterity, endurance, intelligence, guildID, classID, charID)
             
             characterQuery = 'UPDATE characters SET first_name = %s, last_name = %s, strength = %s, dexterity  = %s, endurance = %s, intelligence = %s, guild_id = %s, class_id = %s  WHERE char_id = %s'
@@ -79,21 +75,23 @@ def updateCharacter(id):
             return redirect('/viewCharacters')
 
         elif request.form['buttonID'] == 'Add Spell': 
-            print('spellAddSubmit Called')
+        
             charID = request.form['char_id']
             spellID = request.form['spells']
             spellQuery = 'INSERT INTO characters_spells (char_id, spell_id) VALUES (%s, %s) ON DUPLICATE KEY UPDATE char_id = %s, spell_id = %s'
             spellData = (charID, spellID, charID, spellID)
             execute_query(db_connection, spellQuery, spellData)
+
             return redirect('/viewCharacters')
         
         elif request.form['buttonID'] == 'Remove Spell': 
-            print('spellRemoveSubmit Called')
+         
             charID = request.form['char_id']
             removeSpellID = request.form['removeSpell']
             removeSpellQuery = 'DELETE FROM characters_spells WHERE char_id = %s AND spell_id = %s'
             removeSpellData = (charID, removeSpellID)
             execute_query(db_connection, removeSpellQuery, removeSpellData)
+
             return redirect('/viewCharacters')
 
 
@@ -137,6 +135,7 @@ def addNewCharacter():
 
 @webapp.route('/deleteCharacter/<int:id>')
 def deleteCharacter(id):
+
     db_connection = connect_to_database()
 
     query = "DELETE FROM characters WHERE char_id = %s"
@@ -147,28 +146,31 @@ def deleteCharacter(id):
 
 @webapp.route('/searchCharacters', methods=['GET'])
 def displaySearchPage():
+
     return render_template('searchCharacters.html')
 
 @webapp.route('/search', methods=['POST','GET'])
 def search():
+
     db_connection = connect_to_database()
 
     if request.method == 'POST':
         firstName = request.form.get('f_name', False)
-        print(firstName)
+
         query = "SELECT first_name, last_name, strength, dexterity, endurance, intelligence, char_id FROM characters WHERE first_name = '%s'" % (firstName)
         result = execute_query(db_connection, query).fetchall()
-        print(result)
+
         if len(result) == 0:
             return render_template('notFound.html')
+
         return render_template('results.html', rows=result) 
 
 @webapp.route('/viewClasses')
 def viewClasses():
+
     db_connection = connect_to_database()
     query = "SELECT class_name, stat_bonus_name, stat_bonus, class_id FROM classes"
     result = execute_query(db_connection, query).fetchall()
-    print(result)
     return render_template('viewClasses.html', rows=result)
 
 @webapp.route('/addClass', methods=['POST','GET'])
@@ -176,17 +178,12 @@ def addClass():
 
     db_connection = connect_to_database()
 
-    print ("Add new class!");
-
     if request.method == 'GET':
         query = 'SELECT class_name, stat_bonus, stat_bonus_name FROM classes'
         result = execute_query(db_connection, query).fetchall()
-        print (result)
-
         return render_template('addClass.html')
 
     elif request.method == 'POST':
-
         className = request.form.get('className', False)
         bonusStat = request.form.get('bonusStat', False)
         statBonusName = request.form.get('statBonusName', False)
@@ -196,7 +193,6 @@ def addClass():
         db_connection = connect_to_database()
         data = (className, bonusStat, statBonusName)
         execute_query(db_connection, query, data)
-
         return redirect('/viewClasses')
 
 @webapp.route('/updateClass/<int:id>', methods=['POST','GET'])
@@ -214,8 +210,7 @@ def updateClass(id):
         return render_template('updateClass.html', classes = class_result)
         
     elif request.method == 'POST':
-        print("Update Class!");
-        
+
         class_id = request.form['class_id']
         class_name = request.form['class_name']
         stat_bonus = request.form['stat_bonus']
@@ -229,6 +224,7 @@ def updateClass(id):
 
 @webapp.route('/deleteClass/<int:id>')
 def deleteClass(id):
+
     db_connection = connect_to_database()
 
     query = "DELETE FROM classes WHERE class_id = %s"
@@ -239,28 +235,31 @@ def deleteClass(id):
 
 @webapp.route('/searchClasses', methods=['GET'])
 def displayClassSearchPage():
+
     return render_template('searchClasses.html')
 
 @webapp.route('/searchForClass', methods=['POST','GET'])
 def searchClass():
+
     db_connection = connect_to_database()
 
     if request.method == 'POST':
+
         className = request.form.get('c_name', False)
-        print(className)
         query = "SELECT class_name, stat_bonus_name, stat_bonus, class_id FROM classes WHERE class_name = '%s'" % (className)
         result = execute_query(db_connection, query).fetchall()
-        print(result)
+        
         if len(result) == 0:
             return render_template('notFound.html')
+
         return render_template('resultsClass.html', rows=result) 
 
 @webapp.route('/viewGuilds')
 def viewGuilds():
+
     db_connection = connect_to_database()
     query = "SELECT guild_name, guild_description, guild_id FROM guilds"
-    result = execute_query(db_connection, query).fetchall();
-    print(result)
+    result = execute_query(db_connection, query).fetchall()
     return render_template('viewGuilds.html', rows=result)
 
 @webapp.route('/addGuild', methods=['POST','GET'])
@@ -268,12 +267,10 @@ def addGuild():
 
     db_connection = connect_to_database()
 
-    print ("Add new guild!");
-
     if request.method == 'GET':
+
         query = 'SELECT guild_name, guild_description FROM guilds'
         result = execute_query(db_connection, query).fetchall();
-        print (result)
 
         return render_template('addGuild.html')
 
@@ -308,18 +305,10 @@ def updateGuild(id):
         
     elif request.method == 'POST':
 
-        print("Updated Guild!");
         guild_id = request.form['guild_id']
-        print(guild_id)
-
         guild_name = request.form['guild_name']
-        print(guild_name)
-
         guild_description = request.form['guild_description']
-        print(guild_description)
-
-        print(request.form);
-
+  
         query = "UPDATE guilds SET guild_name= %s, guild_description = %s WHERE guild_id = %s"
         data = (guild_name, guild_description, guild_id)
         result = execute_query(db_connection, query, data)
@@ -339,28 +328,32 @@ def deleteGuild(id):
 
 @webapp.route('/searchGuilds', methods=['GET'])
 def displayGuildSearchPage():
+
     return render_template('searchGuilds.html')
 
 @webapp.route('/searchForGuild', methods=['POST','GET'])
 def searchGuild():
+
     db_connection = connect_to_database()
 
     if request.method == 'POST':
+
         guildName = request.form.get('g_name', False)
-        print(guildName)
         query = "SELECT guild_name, guild_description, guild_id FROM guilds WHERE guild_name = '%s'" % (guildName)
         result = execute_query(db_connection, query).fetchall()
-        print(result)
+
         if len(result) == 0:
             return render_template('notFound.html')
+
         return render_template('resultsGuild.html', rows=result) 
 
 @webapp.route('/viewSpells')
 def viewSpells():
+
     db_connection = connect_to_database()
-    query = "SELECT spell_name, spell_description, spell_level, spell_id FROM spells"
+    query = "SELECT spells.spell_name, spells.spell_description, spells.spell_level, schools.school_name, spells.spell_id FROM spells LEFT JOIN schools ON spells.school_id = schools.school_id"
     result = execute_query(db_connection, query).fetchall();
-    print(result)
+
     return render_template('viewSpells.html', rows=result)
 
 @webapp.route('/addSpell', methods=['POST','GET'])
@@ -368,27 +361,32 @@ def addSpell():
 
     db_connection = connect_to_database()
 
-    print ("Add new spell!");
-
     if request.method == 'GET':
-        query = 'SELECT spell_name, spell_level, spell_description FROM spells'
-        result = execute_query(db_connection, query).fetchall();
-        print (result)
 
-        return render_template('addSpell.html')
+        school_query = 'SELECT school_id, school_name FROM schools'
+        school_result = execute_query(db_connection, school_query).fetchall()
+
+        query = 'SELECT spell_name, spell_level, spell_description, school_id FROM spells'
+        result = execute_query(db_connection, query).fetchall()
+ 
+        return render_template('addSpell.html', schools = school_result)
 
     elif request.method == 'POST':
 
         spellName = request.form.get('spellName', False)
         spellLevel = request.form.get('spellLevel', False)
         spellDescription = request.form.get('spellDescription', False)
+        spellSchool = request.form.get('schools', False)
 
-        query = 'INSERT INTO spells (spell_name, spell_level, spell_description) VALUES (%s, %s, %s)'
+        if (spellSchool == 'noSchool'):
+            query = 'INSERT INTO spells (spell_name, spell_level, spell_description) VALUES (%s, %s, %s)'
+            data = (spellName, spellLevel, spellDescription)
+            
+        else:
+            query = 'INSERT INTO spells (spell_name, spell_level, spell_description, school_id) VALUES (%s, %s, %s, %s)'
+            data = (spellName, spellLevel, spellDescription, spellSchool)
 
-        db_connection = connect_to_database()
-        data = (spellName, spellLevel, spellDescription)
         execute_query(db_connection, query, data)
-
         return redirect('/viewSpells')
 
 @webapp.route('/updateSpell/<int:id>', methods=['POST','GET'])
@@ -397,29 +395,34 @@ def updateSpell(id):
     
     #display existing data
     if request.method == 'GET':
-        spell_query = 'SELECT spell_id, spell_name, spell_level, spell_description FROM spells WHERE spell_id = %s' % (id)
+
+        school_query = 'SELECT school_id, school_name FROM schools'
+        school_result = execute_query(db_connection, school_query).fetchall()
+
+        spell_query = 'SELECT spell_id, spell_name, spell_level, spell_description, school_id FROM spells WHERE spell_id = %s' % (id)
         spell_result = execute_query(db_connection, spell_query).fetchone()
 
         if spell_result == None:
             return render_template('notFound.html')
 
-        return render_template('updateSpell.html', spell = spell_result)
+        return render_template('updateSpell.html', spell = spell_result, spellSchool = school_result)
         
     elif request.method == 'POST':
-
-        print("Update Spells!");
+        
         spell_id = request.form['spell_id']
         spell_name = request.form['spell_name']
         spell_level = request.form['spell_level']
         spell_description = request.form['spell_description']
+        school_id = request.form['spellSchool']
 
-        print(request.form);
+        if (school_id == 'noSchool'):
+            spellData = (spell_name, spell_level, spell_description, None, spell_id)
+        
+        else:
+            spellData = (spell_name, spell_level, spell_description, school_id, spell_id)
 
-        query = "UPDATE spells SET spell_name= %s, spell_level= %s, spell_description = %s WHERE spell_id = %s"
-        data = (spell_name, spell_level, spell_description, spell_id)
-        result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated!");
-
+        query = "UPDATE spells SET spell_name= %s, spell_level= %s, spell_description = %s, school_id = %s WHERE spell_id = %s"
+        result = execute_query(db_connection, query, spellData)
         return redirect('/viewSpells')
 
 @webapp.route('/deleteSpell/<int:id>')
@@ -441,11 +444,85 @@ def searchSpell():
     db_connection = connect_to_database()
 
     if request.method == 'POST':
+        
         spellName = request.form.get('s_name', False)
-        print(spellName)
+       
         query = "SELECT spell_name, spell_description, spell_level, spell_id FROM spells WHERE spell_name = '%s'" % (spellName)
         result = execute_query(db_connection, query).fetchall()
-        print(result)
+
         if len(result) == 0:
             return render_template('notFound.html')
-        return render_template('resultsSpell.html', rows=result) 
+
+        return render_template('resultsSpell.html', rows=result)
+
+@webapp.route('/viewSchools')
+def viewSchools():
+    db_connection = connect_to_database()
+    query = "SELECT school_name, school_description, school_id FROM schools"
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('viewSchools.html', rows=result)
+
+@webapp.route('/addSchool', methods=['POST','GET'])
+def addSchool():
+
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+
+        query = 'SELECT school_name, school_description FROM schools'
+        result = execute_query(db_connection, query).fetchall()
+
+        return render_template('addSchool.html')
+
+    elif request.method == 'POST':
+
+        schoolName = request.form.get('schoolName', False)
+        schoolDescription = request.form.get('schoolDescription', False)
+
+        query = 'INSERT INTO schools (school_name, school_description) VALUES (%s, %s)'
+
+        db_connection = connect_to_database()
+        data = (schoolName, schoolDescription)
+        execute_query(db_connection, query, data)
+
+        return redirect('/viewSchools')
+
+
+@webapp.route('/updateSchool/<int:id>', methods=['POST','GET'])
+def updateSchool(id):
+    
+    db_connection = connect_to_database()
+    
+    #display existing data
+    if request.method == 'GET':
+
+        school_query = 'SELECT school_id, school_name, school_description FROM schools WHERE school_id = %s' % (id)
+        school_result = execute_query(db_connection, school_query).fetchone()
+
+        if school_query == None:
+            return render_template('notFound.html')
+
+        return render_template('updateSchool.html', school = school_result)
+        
+    elif request.method == 'POST':
+
+        school_id = request.form['school_id']
+        school_name = request.form['school_name']
+        school_description = request.form['school_description']
+  
+        query = "UPDATE schools SET school_name= %s, school_description = %s WHERE school_id = %s"
+
+        data = (school_name, school_description, school_id)
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/viewSchools')
+
+@webapp.route('/deleteSchool/<int:id>')
+def deleteSchool(id):
+    db_connection = connect_to_database()
+
+    query = "DELETE FROM schools WHERE school_id = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return redirect('/viewSchools')

@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Query Not Found</title>
+    <title>Add Guild</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
-        h2 {
+        form {
             padding-left: 25px;
         }
     </style>
@@ -67,17 +67,29 @@
                 <a class="nav-link" href="/searchSpells">Search Spells</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/addSchool">Add School</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/viewSchools">View/Manage Schools</a>
+                <a class="nav-link" href="/viewSchools">View Schools</a>
             </li>
           </ul>
         </div>
     </nav> 
 <br>
 
-<h2> Nothing was found! Try again. </h2>
+<form action = '/addSchool' method = "post">
 
+    <legend>Add School:</legend>
+    
+    <label> School Name: <input type ="text" name ="schoolName" maxlength="255"> </label>
+    
+    <br/><br/>
+
+    <label> School Description: <input type ="text" name ="schoolDescription" maxlength="255"></label>
+
+    <br></br>
+
+    <input type="submit" value="Add School">
+
+</form>
+
+<br>
 </body>
 </html>

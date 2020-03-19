@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>View/Manage Characters</title>
+    <title>Update Guild</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -11,9 +11,6 @@
     <style>
       form {
           padding-left: 25px;
-      }
-      th, td {
-        padding: 5px;
       }
   </style>
 </head>
@@ -80,39 +77,27 @@
 </nav> 
 <br>
 
-<form method = "get">
-    <fieldset>
-    <legend>View Current Characters Here:</legend>
-    <table border='1'>
-      <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Strength</th>
-          <th>Dexterity</th>
-          <th>Endurance</th>
-          <th>Intelligence</th>
-          <th>Guild</th>
-          <th>Class</th>
-          <th>Update Character</th>
-          <th>Delete Character</th>
-      </thead>
-      <tbody>
-        {% for r in rows %}
-        <tr>
-          <td> {{ r[0] }}</td>
-          <td> {{ r[1] }}</td>
-          <td> {{ r[2] }}</td>
-          <td> {{ r[3] }}</td>
-          <td> {{ r[4] }}</td>
-          <td> {{ r[5] }}</td>
-          <td> {{ r[6] }}</td>
-          <td> {{ r[7] }}</td>
-          <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateCharacter/{{r[8]}}'"> </td>
-          <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteCharacter/{{r[8]}}'"> </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-  </table>
-  <p></p>
+<form method = "post" id= "updateSchool" action="/updateSchool/{{school[0]}}">
+<fieldset>
+
+  <legend>Update School Here:</legend>
+
+  <input type="hidden" name="school_id" value="{{school[0]}}">
+
+  <label> School Name: <input type ="text" name ="school_name" value="{{school[1]}}" maxlength="255"> </label>
+
+  <br/><br/>
+
+  <label> School Description: <input type ="text" name ="school_description" value="{{school[2]}}" maxlength="255" size="100"></label>
+
+  <br/><br/>
+
+  <input type="submit" value="Submit">
+  
+</fieldset>
+
+  <br/><br/>
+
+
 </body>
-</html>
+</html>\

@@ -66,6 +66,12 @@
         <li class="nav-item">
             <a class="nav-link" href="/searchSpells">Search Spells</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addSchool">Add School</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/viewSchools">View/Manage Schools</a>
+      </li>
       </ul>
     </div>
 </nav> 
@@ -90,6 +96,18 @@
   <label>Spell Description: <input type ="text" name ="spell_description" value="{{spell[3]}}" size="50" maxlength="255"></label>
 
   <br/><br/>
+
+  <label>Spell School: </label>
+
+  <select name= "spellSchool" value ="{{spell[4]}}">
+
+          {% for ss in spellSchool %}
+            <option value="{{ ss[0] }}" > {{ ss[1] }}</option>
+          {% endfor %}
+            <option value="noSchool"> No School</option>
+      </select>
+
+  <br/>
 
   <input type="submit" value="Submit">
 

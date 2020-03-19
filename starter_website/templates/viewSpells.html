@@ -69,6 +69,12 @@
         <li class="nav-item">
             <a class="nav-link" href="/searchSpells">Search Spells</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addSchool">Add School</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/viewSchools">View/Manage Schools</a>
+      </li>
       </ul>
     </div>
 </nav> 
@@ -82,6 +88,7 @@
         <th>Spell Name</th>
         <th>Spell Description</th>
         <th>Spell Level</th>
+        <th>Spell School</th>
         <th>Update Spells</th>
         <th>Delete Spells</th>
     </thead>
@@ -91,8 +98,9 @@
         <td> {{ r[0] }}</td>
         <td> {{ r[1] }}</td>
         <td> {{ r[2] }}</td>
-        <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateSpell/{{r[3]}}'"> </td>
-        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteSpell/{{r[3]}}'"> </td>
+        <td> {{ r[3] }}</td>
+        <td> <input type='button' name='Update' value='Update' onclick="window.location = '/updateSpell/{{r[4]}}'"> </td>
+        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = '/deleteSpell/{{r[4]}}'"> </td>
       </tr>
       {% endfor %}
     </tbody>
