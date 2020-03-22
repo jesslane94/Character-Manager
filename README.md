@@ -3,4 +3,4 @@ Web application for managing your characters in a table top roleplaying game suc
 You can add Class, Guild, and Spells associated with your character.
 
 ## Demo (Adding a Character)
-![GIF of adding a character](https://github.com/jesslane94/Character-Manager/blob/master/addcharacter.gif)
+![GIF of adding a character](https://github.com/jesslane94/Character-Manager/blob/master/adddemo.gif)
